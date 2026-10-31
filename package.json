@@ -1,0 +1,55 @@
+{
+  "name": "fatal-figures",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fatal Figures — a private-room multiplayer game of prediction, bluffing and elimination.",
+  "author": "Enamul Haque <enamulhaque16022@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "tsx watch server/index.ts",
+    "build": "tsc --noEmit && vite build && tsc -p tsconfig.server.json",
+    "start": "node --env-file-if-exists=.env dist/server/index.js",
+    "migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
+    "test": "vitest run",
+    "test:db": "vitest run tests/database.test.ts tests/transport.test.ts",
+    "test:browser": "playwright test",
+    "simulate": "tsx scripts/simulate.ts",
+    "db:local": "tsx scripts/local-postgres.ts",
+    "verify:draw": "tsx scripts/verify-draw.ts",
+    "typecheck": "tsc --noEmit",
+    "verify:replay": "tsx scripts/verify-replay.ts",
+    "format": "prettier --write shared server web tests scripts *.ts *.json *.yml docs/*.md README.md",
+    "format:check": "prettier --check shared server web tests scripts *.ts *.json *.yml docs/*.md README.md",
+    "db:fixtures": "tsx scripts/db-fixtures.ts"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "socket.io": "4.8.4",
+    "socket.io-client": "4.8.4",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "@types/pg": "^8.15.6",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "embedded-postgres": "18.6.0-beta.19",
+    "prettier": "^3.9.10",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

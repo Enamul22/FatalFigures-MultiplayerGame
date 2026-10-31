@@ -1,0 +1,1340 @@
+{
+  "seed": "FatalFigures-review-v2",
+  "matchesPerCount": 1000,
+  "productionTiming": true,
+  "groups": [
+    {
+      "seats": 2,
+      "matches": 1000,
+      "maxDurationMs": 430000,
+      "minDurationMs": 385000,
+      "totalDurationMs": 396610000,
+      "phases": 1000,
+      "tiebreaks": 258,
+      "randomDraws": 210,
+      "submitted": 5226,
+      "collisions": 0,
+      "circleRounds": 3000,
+      "circleDrawRounds": 510,
+      "championsBySeat": [
+        473,
+        527
+      ],
+      "championsByJoinPosition": [
+        506,
+        494
+      ],
+      "strategySeats": {
+        "Anchor": 501,
+        "Analyst": 502,
+        "Adapter": 498,
+        "Contrarian": 499
+      },
+      "strategyWins": {
+        "Anchor": 236,
+        "Adapter": 239,
+        "Analyst": 263,
+        "Contrarian": 262
+      },
+      "finalStartsAtZero": 0,
+      "finalZeroStartWins": 0,
+      "meanDurationMs": 396610,
+      "tiebreakRate": 0.258,
+      "collisionRate": 0,
+      "circleDrawRate": 0.17,
+      "byScenario": {
+        "timeouts": {
+          "matches": 100,
+          "maxDurationMs": 430000,
+          "minDurationMs": 430000,
+          "totalDurationMs": 43000000,
+          "phases": 100,
+          "tiebreaks": 100,
+          "randomDraws": 100,
+          "submitted": 0,
+          "collisions": 0,
+          "circleRounds": 300,
+          "circleDrawRounds": 0,
+          "championsBySeat": [
+            46,
+            54
+          ],
+          "championsByJoinPosition": [
+            42,
+            58
+          ],
+          "strategySeats": {
+            "Anchor": 75,
+            "Analyst": 26,
+            "Contrarian": 75,
+            "Adapter": 24
+          },
+          "strategyWins": {
+            "Anchor": 38,
+            "Contrarian": 38,
+            "Adapter": 12,
+            "Analyst": 12
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 430000,
+          "tiebreakRate": 1,
+          "collisionRate": 0,
+          "circleDrawRate": 0
+        },
+        "equal": {
+          "matches": 100,
+          "maxDurationMs": 430000,
+          "minDurationMs": 430000,
+          "totalDurationMs": 43000000,
+          "phases": 100,
+          "tiebreaks": 100,
+          "randomDraws": 100,
+          "submitted": 600,
+          "collisions": 0,
+          "circleRounds": 300,
+          "circleDrawRounds": 300,
+          "championsBySeat": [
+            48,
+            52
+          ],
+          "championsByJoinPosition": [
+            54,
+            46
+          ],
+          "strategySeats": {
+            "Adapter": 76,
+            "Analyst": 74,
+            "Contrarian": 26,
+            "Anchor": 24
+          },
+          "strategyWins": {
+            "Adapter": 36,
+            "Contrarian": 13,
+            "Analyst": 39,
+            "Anchor": 12
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 430000,
+          "tiebreakRate": 1,
+          "collisionRate": 0,
+          "circleDrawRate": 1
+        },
+        "mixed": {
+          "matches": 800,
+          "maxDurationMs": 430000,
+          "minDurationMs": 385000,
+          "totalDurationMs": 310610000,
+          "phases": 800,
+          "tiebreaks": 58,
+          "randomDraws": 10,
+          "submitted": 4626,
+          "collisions": 0,
+          "circleRounds": 2400,
+          "circleDrawRounds": 210,
+          "championsBySeat": [
+            379,
+            421
+          ],
+          "championsByJoinPosition": [
+            410,
+            390
+          ],
+          "strategySeats": {
+            "Anchor": 402,
+            "Contrarian": 398,
+            "Analyst": 402,
+            "Adapter": 398
+          },
+          "strategyWins": {
+            "Anchor": 186,
+            "Analyst": 212,
+            "Adapter": 191,
+            "Contrarian": 211
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 388262.5,
+          "tiebreakRate": 0.0725,
+          "collisionRate": 0,
+          "circleDrawRate": 0.0875
+        }
+      },
+      "byFamily": {
+        "balanced": {
+          "matches": 250,
+          "maxDurationMs": 430000,
+          "minDurationMs": 385000,
+          "totalDurationMs": 99085000,
+          "phases": 250,
+          "tiebreaks": 63,
+          "randomDraws": 52,
+          "submitted": 1167,
+          "collisions": 0,
+          "circleRounds": 750,
+          "circleDrawRounds": 49,
+          "championsBySeat": [
+            106,
+            144
+          ],
+          "championsByJoinPosition": [
+            122,
+            128
+          ],
+          "strategySeats": {
+            "Anchor": 125,
+            "Analyst": 126,
+            "Contrarian": 125,
+            "Adapter": 124
+          },
+          "strategyWins": {
+            "Anchor": 57,
+            "Analyst": 70,
+            "Adapter": 57,
+            "Contrarian": 66
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 396340,
+          "tiebreakRate": 0.252,
+          "collisionRate": 0,
+          "circleDrawRate": 0.06533333333333333
+        },
+        "analysts": {
+          "matches": 250,
+          "maxDurationMs": 430000,
+          "minDurationMs": 385000,
+          "totalDurationMs": 99715000,
+          "phases": 250,
+          "tiebreaks": 77,
+          "randomDraws": 54,
+          "submitted": 1453,
+          "collisions": 0,
+          "circleRounds": 750,
+          "circleDrawRounds": 248,
+          "championsBySeat": [
+            120,
+            130
+          ],
+          "championsByJoinPosition": [
+            115,
+            135
+          ],
+          "strategySeats": {
+            "Adapter": 250,
+            "Analyst": 250
+          },
+          "strategyWins": {
+            "Adapter": 120,
+            "Analyst": 130
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 398860,
+          "tiebreakRate": 0.308,
+          "collisionRate": 0,
+          "circleDrawRate": 0.33066666666666666
+        },
+        "disruptors": {
+          "matches": 250,
+          "maxDurationMs": 430000,
+          "minDurationMs": 385000,
+          "totalDurationMs": 98500000,
+          "phases": 250,
+          "tiebreaks": 50,
+          "randomDraws": 50,
+          "submitted": 1150,
+          "collisions": 0,
+          "circleRounds": 750,
+          "circleDrawRounds": 4,
+          "championsBySeat": [
+            116,
+            134
+          ],
+          "championsByJoinPosition": [
+            129,
+            121
+          ],
+          "strategySeats": {
+            "Anchor": 250,
+            "Contrarian": 250
+          },
+          "strategyWins": {
+            "Anchor": 116,
+            "Contrarian": 134
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 394000,
+          "tiebreakRate": 0.2,
+          "collisionRate": 0,
+          "circleDrawRate": 0.005333333333333333
+        },
+        "homogeneous": {
+          "matches": 250,
+          "maxDurationMs": 430000,
+          "minDurationMs": 385000,
+          "totalDurationMs": 99310000,
+          "phases": 250,
+          "tiebreaks": 68,
+          "randomDraws": 54,
+          "submitted": 1456,
+          "collisions": 0,
+          "circleRounds": 750,
+          "circleDrawRounds": 209,
+          "championsBySeat": [
+            131,
+            119
+          ],
+          "championsByJoinPosition": [
+            140,
+            110
+          ],
+          "strategySeats": {
+            "Anchor": 126,
+            "Analyst": 126,
+            "Contrarian": 124,
+            "Adapter": 124
+          },
+          "strategyWins": {
+            "Anchor": 63,
+            "Analyst": 63,
+            "Contrarian": 62,
+            "Adapter": 62
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 397240,
+          "tiebreakRate": 0.272,
+          "collisionRate": 0,
+          "circleDrawRate": 0.2786666666666667
+        }
+      }
+    },
+    {
+      "seats": 3,
+      "matches": 1000,
+      "maxDurationMs": 860000,
+      "minDurationMs": 770000,
+      "totalDurationMs": 789260000,
+      "phases": 2000,
+      "tiebreaks": 428,
+      "randomDraws": 406,
+      "submitted": 13019,
+      "collisions": 1602,
+      "circleRounds": 3000,
+      "circleDrawRounds": 589,
+      "championsBySeat": [
+        345,
+        334,
+        321
+      ],
+      "championsByJoinPosition": [
+        332,
+        334,
+        334
+      ],
+      "strategySeats": {
+        "Anchor": 876,
+        "Analyst": 627,
+        "Contrarian": 624,
+        "Adapter": 873
+      },
+      "strategyWins": {
+        "Contrarian": 211,
+        "Analyst": 219,
+        "Anchor": 276,
+        "Adapter": 294
+      },
+      "finalStartsAtZero": 794,
+      "finalZeroStartWins": 504,
+      "meanDurationMs": 789260,
+      "tiebreakRate": 0.214,
+      "collisionRate": 0.1230509255703203,
+      "circleDrawRate": 0.19633333333333333,
+      "byScenario": {
+        "timeouts": {
+          "matches": 100,
+          "maxDurationMs": 860000,
+          "minDurationMs": 860000,
+          "totalDurationMs": 86000000,
+          "phases": 200,
+          "tiebreaks": 200,
+          "randomDraws": 200,
+          "submitted": 0,
+          "collisions": 0,
+          "circleRounds": 300,
+          "circleDrawRounds": 0,
+          "championsBySeat": [
+            45,
+            16,
+            39
+          ],
+          "championsByJoinPosition": [
+            38,
+            34,
+            28
+          ],
+          "strategySeats": {
+            "Anchor": 137,
+            "Analyst": 38,
+            "Contrarian": 88,
+            "Adapter": 37
+          },
+          "strategyWins": {
+            "Contrarian": 23,
+            "Adapter": 13,
+            "Anchor": 51,
+            "Analyst": 13
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 860000,
+          "tiebreakRate": 1,
+          "collisionRate": 0,
+          "circleDrawRate": 0
+        },
+        "equal": {
+          "matches": 100,
+          "maxDurationMs": 860000,
+          "minDurationMs": 860000,
+          "totalDurationMs": 86000000,
+          "phases": 200,
+          "tiebreaks": 200,
+          "randomDraws": 200,
+          "submitted": 1500,
+          "collisions": 900,
+          "circleRounds": 300,
+          "circleDrawRounds": 300,
+          "championsBySeat": [
+            33,
+            37,
+            30
+          ],
+          "championsByJoinPosition": [
+            31,
+            35,
+            34
+          ],
+          "strategySeats": {
+            "Adapter": 139,
+            "Analyst": 86,
+            "Contrarian": 39,
+            "Anchor": 36
+          },
+          "strategyWins": {
+            "Analyst": 29,
+            "Contrarian": 13,
+            "Adapter": 46,
+            "Anchor": 12
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 860000,
+          "tiebreakRate": 1,
+          "collisionRate": 0.6,
+          "circleDrawRate": 1
+        },
+        "mixed": {
+          "matches": 800,
+          "maxDurationMs": 860000,
+          "minDurationMs": 770000,
+          "totalDurationMs": 617260000,
+          "phases": 1600,
+          "tiebreaks": 28,
+          "randomDraws": 6,
+          "submitted": 11519,
+          "collisions": 702,
+          "circleRounds": 2400,
+          "circleDrawRounds": 289,
+          "championsBySeat": [
+            267,
+            281,
+            252
+          ],
+          "championsByJoinPosition": [
+            263,
+            265,
+            272
+          ],
+          "strategySeats": {
+            "Anchor": 703,
+            "Contrarian": 497,
+            "Analyst": 503,
+            "Adapter": 697
+          },
+          "strategyWins": {
+            "Anchor": 213,
+            "Analyst": 177,
+            "Contrarian": 175,
+            "Adapter": 235
+          },
+          "finalStartsAtZero": 794,
+          "finalZeroStartWins": 504,
+          "meanDurationMs": 771575,
+          "tiebreakRate": 0.0175,
+          "collisionRate": 0.060942790172758055,
+          "circleDrawRate": 0.12041666666666667
+        }
+      },
+      "byFamily": {
+        "balanced": {
+          "matches": 250,
+          "maxDurationMs": 860000,
+          "minDurationMs": 770000,
+          "totalDurationMs": 197540000,
+          "phases": 500,
+          "tiebreaks": 112,
+          "randomDraws": 105,
+          "submitted": 2895,
+          "collisions": 82,
+          "circleRounds": 750,
+          "circleDrawRounds": 131,
+          "championsBySeat": [
+            89,
+            81,
+            80
+          ],
+          "championsByJoinPosition": [
+            93,
+            71,
+            86
+          ],
+          "strategySeats": {
+            "Anchor": 187,
+            "Analyst": 188,
+            "Contrarian": 188,
+            "Adapter": 187
+          },
+          "strategyWins": {
+            "Contrarian": 70,
+            "Analyst": 66,
+            "Adapter": 72,
+            "Anchor": 42
+          },
+          "finalStartsAtZero": 198,
+          "finalZeroStartWins": 126,
+          "meanDurationMs": 790160,
+          "tiebreakRate": 0.224,
+          "collisionRate": 0.028324697754749568,
+          "circleDrawRate": 0.17466666666666666
+        },
+        "analysts": {
+          "matches": 250,
+          "maxDurationMs": 860000,
+          "minDurationMs": 770000,
+          "totalDurationMs": 197405000,
+          "phases": 500,
+          "tiebreaks": 109,
+          "randomDraws": 100,
+          "submitted": 3640,
+          "collisions": 789,
+          "circleRounds": 750,
+          "circleDrawRounds": 224,
+          "championsBySeat": [
+            77,
+            90,
+            83
+          ],
+          "championsByJoinPosition": [
+            81,
+            89,
+            80
+          ],
+          "strategySeats": {
+            "Adapter": 500,
+            "Analyst": 250
+          },
+          "strategyWins": {
+            "Analyst": 90,
+            "Adapter": 160
+          },
+          "finalStartsAtZero": 198,
+          "finalZeroStartWins": 131,
+          "meanDurationMs": 789620,
+          "tiebreakRate": 0.218,
+          "collisionRate": 0.21675824175824177,
+          "circleDrawRate": 0.2986666666666667
+        },
+        "disruptors": {
+          "matches": 250,
+          "maxDurationMs": 860000,
+          "minDurationMs": 770000,
+          "totalDurationMs": 197090000,
+          "phases": 500,
+          "tiebreaks": 102,
+          "randomDraws": 100,
+          "submitted": 2867,
+          "collisions": 34,
+          "circleRounds": 750,
+          "circleDrawRounds": 7,
+          "championsBySeat": [
+            93,
+            79,
+            78
+          ],
+          "championsByJoinPosition": [
+            74,
+            88,
+            88
+          ],
+          "strategySeats": {
+            "Anchor": 500,
+            "Contrarian": 250
+          },
+          "strategyWins": {
+            "Anchor": 171,
+            "Contrarian": 79
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 126,
+          "meanDurationMs": 788360,
+          "tiebreakRate": 0.204,
+          "collisionRate": 0.011859086152772933,
+          "circleDrawRate": 0.009333333333333334
+        },
+        "homogeneous": {
+          "matches": 250,
+          "maxDurationMs": 860000,
+          "minDurationMs": 770000,
+          "totalDurationMs": 197225000,
+          "phases": 500,
+          "tiebreaks": 105,
+          "randomDraws": 101,
+          "submitted": 3617,
+          "collisions": 697,
+          "circleRounds": 750,
+          "circleDrawRounds": 227,
+          "championsBySeat": [
+            86,
+            84,
+            80
+          ],
+          "championsByJoinPosition": [
+            84,
+            86,
+            80
+          ],
+          "strategySeats": {
+            "Anchor": 189,
+            "Analyst": 189,
+            "Contrarian": 186,
+            "Adapter": 186
+          },
+          "strategyWins": {
+            "Anchor": 63,
+            "Analyst": 63,
+            "Contrarian": 62,
+            "Adapter": 62
+          },
+          "finalStartsAtZero": 198,
+          "finalZeroStartWins": 121,
+          "meanDurationMs": 788900,
+          "tiebreakRate": 0.21,
+          "collisionRate": 0.19270113353607962,
+          "circleDrawRate": 0.30266666666666664
+        }
+      }
+    },
+    {
+      "seats": 4,
+      "matches": 1000,
+      "maxDurationMs": 1290000,
+      "minDurationMs": 1155000,
+      "totalDurationMs": 1183890000,
+      "phases": 3000,
+      "tiebreaks": 642,
+      "randomDraws": 617,
+      "submitted": 23399,
+      "collisions": 4576,
+      "circleRounds": 3000,
+      "circleDrawRounds": 702,
+      "championsBySeat": [
+        240,
+        244,
+        265,
+        251
+      ],
+      "championsByJoinPosition": [
+        258,
+        260,
+        244,
+        238
+      ],
+      "strategySeats": {
+        "Anchor": 1002,
+        "Analyst": 1002,
+        "Contrarian": 998,
+        "Adapter": 998
+      },
+      "strategyWins": {
+        "Contrarian": 266,
+        "Adapter": 275,
+        "Anchor": 216,
+        "Analyst": 243
+      },
+      "finalStartsAtZero": 799,
+      "finalZeroStartWins": 491,
+      "meanDurationMs": 1183890,
+      "tiebreakRate": 0.214,
+      "collisionRate": 0.1955639129877345,
+      "circleDrawRate": 0.234,
+      "byScenario": {
+        "timeouts": {
+          "matches": 100,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1290000,
+          "totalDurationMs": 129000000,
+          "phases": 300,
+          "tiebreaks": 300,
+          "randomDraws": 300,
+          "submitted": 0,
+          "collisions": 0,
+          "circleRounds": 300,
+          "circleDrawRounds": 0,
+          "championsBySeat": [
+            22,
+            24,
+            28,
+            26
+          ],
+          "championsByJoinPosition": [
+            32,
+            25,
+            24,
+            19
+          ],
+          "strategySeats": {
+            "Anchor": 150,
+            "Analyst": 50,
+            "Contrarian": 150,
+            "Adapter": 50
+          },
+          "strategyWins": {
+            "Contrarian": 36,
+            "Anchor": 35,
+            "Analyst": 15,
+            "Adapter": 14
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 1290000,
+          "tiebreakRate": 1,
+          "collisionRate": 0,
+          "circleDrawRate": 0
+        },
+        "equal": {
+          "matches": 100,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1290000,
+          "totalDurationMs": 129000000,
+          "phases": 300,
+          "tiebreaks": 300,
+          "randomDraws": 300,
+          "submitted": 2700,
+          "collisions": 2100,
+          "circleRounds": 300,
+          "circleDrawRounds": 300,
+          "championsBySeat": [
+            27,
+            16,
+            27,
+            30
+          ],
+          "championsByJoinPosition": [
+            23,
+            33,
+            18,
+            26
+          ],
+          "strategySeats": {
+            "Adapter": 152,
+            "Analyst": 148,
+            "Contrarian": 52,
+            "Anchor": 48
+          },
+          "strategyWins": {
+            "Adapter": 41,
+            "Contrarian": 13,
+            "Analyst": 34,
+            "Anchor": 12
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 1290000,
+          "tiebreakRate": 1,
+          "collisionRate": 0.7777777777777778,
+          "circleDrawRate": 1
+        },
+        "mixed": {
+          "matches": 800,
+          "maxDurationMs": 1245000,
+          "minDurationMs": 1155000,
+          "totalDurationMs": 925890000,
+          "phases": 2400,
+          "tiebreaks": 42,
+          "randomDraws": 17,
+          "submitted": 20699,
+          "collisions": 2476,
+          "circleRounds": 2400,
+          "circleDrawRounds": 402,
+          "championsBySeat": [
+            191,
+            204,
+            210,
+            195
+          ],
+          "championsByJoinPosition": [
+            203,
+            202,
+            202,
+            193
+          ],
+          "strategySeats": {
+            "Anchor": 804,
+            "Contrarian": 796,
+            "Analyst": 804,
+            "Adapter": 796
+          },
+          "strategyWins": {
+            "Anchor": 169,
+            "Contrarian": 217,
+            "Adapter": 220,
+            "Analyst": 194
+          },
+          "finalStartsAtZero": 799,
+          "finalZeroStartWins": 491,
+          "meanDurationMs": 1157362.5,
+          "tiebreakRate": 0.0175,
+          "collisionRate": 0.11961930528044833,
+          "circleDrawRate": 0.1675
+        }
+      },
+      "byFamily": {
+        "balanced": {
+          "matches": 250,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1155000,
+          "totalDurationMs": 295995000,
+          "phases": 750,
+          "tiebreaks": 161,
+          "randomDraws": 155,
+          "submitted": 5157,
+          "collisions": 290,
+          "circleRounds": 750,
+          "circleDrawRounds": 141,
+          "championsBySeat": [
+            56,
+            62,
+            60,
+            72
+          ],
+          "championsByJoinPosition": [
+            64,
+            68,
+            63,
+            55
+          ],
+          "strategySeats": {
+            "Anchor": 250,
+            "Analyst": 250,
+            "Contrarian": 250,
+            "Adapter": 250
+          },
+          "strategyWins": {
+            "Contrarian": 70,
+            "Anchor": 37,
+            "Analyst": 75,
+            "Adapter": 68
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 126,
+          "meanDurationMs": 1183980,
+          "tiebreakRate": 0.21466666666666667,
+          "collisionRate": 0.05623424471592011,
+          "circleDrawRate": 0.188
+        },
+        "analysts": {
+          "matches": 250,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1155000,
+          "totalDurationMs": 296040000,
+          "phases": 750,
+          "tiebreaks": 162,
+          "randomDraws": 154,
+          "submitted": 6542,
+          "collisions": 2256,
+          "circleRounds": 750,
+          "circleDrawRounds": 252,
+          "championsBySeat": [
+            79,
+            50,
+            66,
+            55
+          ],
+          "championsByJoinPosition": [
+            66,
+            75,
+            56,
+            53
+          ],
+          "strategySeats": {
+            "Adapter": 500,
+            "Analyst": 500
+          },
+          "strategyWins": {
+            "Adapter": 145,
+            "Analyst": 105
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 124,
+          "meanDurationMs": 1184160,
+          "tiebreakRate": 0.216,
+          "collisionRate": 0.34484867013145826,
+          "circleDrawRate": 0.336
+        },
+        "disruptors": {
+          "matches": 250,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1155000,
+          "totalDurationMs": 295815000,
+          "phases": 750,
+          "tiebreaks": 157,
+          "randomDraws": 152,
+          "submitted": 5173,
+          "collisions": 179,
+          "circleRounds": 750,
+          "circleDrawRounds": 52,
+          "championsBySeat": [
+            47,
+            67,
+            69,
+            67
+          ],
+          "championsByJoinPosition": [
+            63,
+            55,
+            68,
+            64
+          ],
+          "strategySeats": {
+            "Anchor": 500,
+            "Contrarian": 500
+          },
+          "strategyWins": {
+            "Anchor": 116,
+            "Contrarian": 134
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 113,
+          "meanDurationMs": 1183260,
+          "tiebreakRate": 0.20933333333333334,
+          "collisionRate": 0.03460274502223081,
+          "circleDrawRate": 0.06933333333333333
+        },
+        "homogeneous": {
+          "matches": 250,
+          "maxDurationMs": 1290000,
+          "minDurationMs": 1155000,
+          "totalDurationMs": 296040000,
+          "phases": 750,
+          "tiebreaks": 162,
+          "randomDraws": 156,
+          "submitted": 6527,
+          "collisions": 1851,
+          "circleRounds": 750,
+          "circleDrawRounds": 257,
+          "championsBySeat": [
+            58,
+            65,
+            70,
+            57
+          ],
+          "championsByJoinPosition": [
+            65,
+            62,
+            57,
+            66
+          ],
+          "strategySeats": {
+            "Anchor": 252,
+            "Analyst": 252,
+            "Contrarian": 248,
+            "Adapter": 248
+          },
+          "strategyWins": {
+            "Anchor": 63,
+            "Analyst": 63,
+            "Contrarian": 62,
+            "Adapter": 62
+          },
+          "finalStartsAtZero": 199,
+          "finalZeroStartWins": 128,
+          "meanDurationMs": 1184160,
+          "tiebreakRate": 0.216,
+          "collisionRate": 0.2835912364026352,
+          "circleDrawRate": 0.3426666666666667
+        }
+      }
+    },
+    {
+      "seats": 5,
+      "matches": 1000,
+      "maxDurationMs": 1720000,
+      "minDurationMs": 1540000,
+      "totalDurationMs": 1578160000,
+      "phases": 4000,
+      "tiebreaks": 848,
+      "randomDraws": 812,
+      "submitted": 36411,
+      "collisions": 8363,
+      "circleRounds": 3000,
+      "circleDrawRounds": 735,
+      "championsBySeat": [
+        197,
+        211,
+        180,
+        212,
+        200
+      ],
+      "championsByJoinPosition": [
+        190,
+        188,
+        212,
+        200,
+        210
+      ],
+      "strategySeats": {
+        "Anchor": 1378,
+        "Analyst": 1128,
+        "Contrarian": 1122,
+        "Adapter": 1372
+      },
+      "strategyWins": {
+        "Analyst": 236,
+        "Contrarian": 243,
+        "Anchor": 211,
+        "Adapter": 310
+      },
+      "finalStartsAtZero": 799,
+      "finalZeroStartWins": 491,
+      "meanDurationMs": 1578160,
+      "tiebreakRate": 0.212,
+      "collisionRate": 0.2296833374529675,
+      "circleDrawRate": 0.245,
+      "byScenario": {
+        "timeouts": {
+          "matches": 100,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1720000,
+          "totalDurationMs": 172000000,
+          "phases": 400,
+          "tiebreaks": 400,
+          "randomDraws": 400,
+          "submitted": 0,
+          "collisions": 0,
+          "circleRounds": 300,
+          "circleDrawRounds": 0,
+          "championsBySeat": [
+            19,
+            16,
+            20,
+            25,
+            20
+          ],
+          "championsByJoinPosition": [
+            26,
+            13,
+            18,
+            19,
+            24
+          ],
+          "strategySeats": {
+            "Anchor": 213,
+            "Analyst": 63,
+            "Contrarian": 162,
+            "Adapter": 62
+          },
+          "strategyWins": {
+            "Analyst": 18,
+            "Contrarian": 29,
+            "Adapter": 8,
+            "Anchor": 45
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 1720000,
+          "tiebreakRate": 1,
+          "collisionRate": 0,
+          "circleDrawRate": 0
+        },
+        "equal": {
+          "matches": 100,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1720000,
+          "totalDurationMs": 172000000,
+          "phases": 400,
+          "tiebreaks": 400,
+          "randomDraws": 400,
+          "submitted": 4200,
+          "collisions": 3600,
+          "circleRounds": 300,
+          "circleDrawRounds": 300,
+          "championsBySeat": [
+            22,
+            17,
+            18,
+            20,
+            23
+          ],
+          "championsByJoinPosition": [
+            18,
+            19,
+            18,
+            17,
+            28
+          ],
+          "strategySeats": {
+            "Adapter": 215,
+            "Analyst": 160,
+            "Contrarian": 65,
+            "Anchor": 60
+          },
+          "strategyWins": {
+            "Analyst": 31,
+            "Contrarian": 13,
+            "Adapter": 44,
+            "Anchor": 12
+          },
+          "finalStartsAtZero": 0,
+          "finalZeroStartWins": 0,
+          "meanDurationMs": 1720000,
+          "tiebreakRate": 1,
+          "collisionRate": 0.8571428571428571,
+          "circleDrawRate": 1
+        },
+        "mixed": {
+          "matches": 800,
+          "maxDurationMs": 1585000,
+          "minDurationMs": 1540000,
+          "totalDurationMs": 1234160000,
+          "phases": 3200,
+          "tiebreaks": 48,
+          "randomDraws": 12,
+          "submitted": 32211,
+          "collisions": 4763,
+          "circleRounds": 2400,
+          "circleDrawRounds": 435,
+          "championsBySeat": [
+            156,
+            178,
+            142,
+            167,
+            157
+          ],
+          "championsByJoinPosition": [
+            146,
+            156,
+            176,
+            164,
+            158
+          ],
+          "strategySeats": {
+            "Anchor": 1105,
+            "Contrarian": 895,
+            "Analyst": 905,
+            "Adapter": 1095
+          },
+          "strategyWins": {
+            "Contrarian": 201,
+            "Anchor": 154,
+            "Analyst": 187,
+            "Adapter": 258
+          },
+          "finalStartsAtZero": 799,
+          "finalZeroStartWins": 491,
+          "meanDurationMs": 1542700,
+          "tiebreakRate": 0.015,
+          "collisionRate": 0.1478687404923784,
+          "circleDrawRate": 0.18125
+        }
+      },
+      "byFamily": {
+        "balanced": {
+          "matches": 250,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1540000,
+          "totalDurationMs": 394630000,
+          "phases": 1000,
+          "tiebreaks": 214,
+          "randomDraws": 204,
+          "submitted": 8064,
+          "collisions": 734,
+          "circleRounds": 750,
+          "circleDrawRounds": 167,
+          "championsBySeat": [
+            55,
+            54,
+            41,
+            52,
+            48
+          ],
+          "championsByJoinPosition": [
+            59,
+            45,
+            45,
+            49,
+            52
+          ],
+          "strategySeats": {
+            "Anchor": 313,
+            "Analyst": 313,
+            "Contrarian": 312,
+            "Adapter": 312
+          },
+          "strategyWins": {
+            "Analyst": 83,
+            "Contrarian": 55,
+            "Adapter": 88,
+            "Anchor": 24
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 134,
+          "meanDurationMs": 1578520,
+          "tiebreakRate": 0.214,
+          "collisionRate": 0.09102182539682539,
+          "circleDrawRate": 0.22266666666666668
+        },
+        "analysts": {
+          "matches": 250,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1540000,
+          "totalDurationMs": 394495000,
+          "phases": 1000,
+          "tiebreaks": 211,
+          "randomDraws": 200,
+          "submitted": 10166,
+          "collisions": 3955,
+          "circleRounds": 750,
+          "circleDrawRounds": 267,
+          "championsBySeat": [
+            57,
+            45,
+            56,
+            45,
+            47
+          ],
+          "championsByJoinPosition": [
+            42,
+            59,
+            55,
+            50,
+            44
+          ],
+          "strategySeats": {
+            "Adapter": 750,
+            "Analyst": 500
+          },
+          "strategyWins": {
+            "Analyst": 90,
+            "Adapter": 160
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 129,
+          "meanDurationMs": 1577980,
+          "tiebreakRate": 0.211,
+          "collisionRate": 0.38904190438717295,
+          "circleDrawRate": 0.356
+        },
+        "disruptors": {
+          "matches": 250,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1540000,
+          "totalDurationMs": 394225000,
+          "phases": 1000,
+          "tiebreaks": 205,
+          "randomDraws": 200,
+          "submitted": 8058,
+          "collisions": 304,
+          "circleRounds": 750,
+          "circleDrawRounds": 42,
+          "championsBySeat": [
+            37,
+            62,
+            37,
+            64,
+            50
+          ],
+          "championsByJoinPosition": [
+            48,
+            43,
+            50,
+            50,
+            59
+          ],
+          "strategySeats": {
+            "Anchor": 750,
+            "Contrarian": 500
+          },
+          "strategyWins": {
+            "Contrarian": 126,
+            "Anchor": 124
+          },
+          "finalStartsAtZero": 200,
+          "finalZeroStartWins": 109,
+          "meanDurationMs": 1576900,
+          "tiebreakRate": 0.205,
+          "collisionRate": 0.037726482998262596,
+          "circleDrawRate": 0.056
+        },
+        "homogeneous": {
+          "matches": 250,
+          "maxDurationMs": 1720000,
+          "minDurationMs": 1540000,
+          "totalDurationMs": 394810000,
+          "phases": 1000,
+          "tiebreaks": 218,
+          "randomDraws": 208,
+          "submitted": 10123,
+          "collisions": 3370,
+          "circleRounds": 750,
+          "circleDrawRounds": 259,
+          "championsBySeat": [
+            48,
+            50,
+            46,
+            51,
+            55
+          ],
+          "championsByJoinPosition": [
+            41,
+            41,
+            62,
+            51,
+            55
+          ],
+          "strategySeats": {
+            "Anchor": 315,
+            "Analyst": 315,
+            "Contrarian": 310,
+            "Adapter": 310
+          },
+          "strategyWins": {
+            "Anchor": 63,
+            "Analyst": 63,
+            "Contrarian": 62,
+            "Adapter": 62
+          },
+          "finalStartsAtZero": 199,
+          "finalZeroStartWins": 119,
+          "meanDurationMs": 1579240,
+          "tiebreakRate": 0.218,
+          "collisionRate": 0.3329052652375778,
+          "circleDrawRate": 0.3453333333333333
+        }
+      }
+    }
+  ],
+  "interpretation": "Four strategy families (balanced, analyst/adapter, anchor/contrarian, homogeneous rotation), independently seeded public-information choices and randomized seat assignments. Every tenth match stresses all timeouts and every tenth+1 all identical picks; mixed cases include 4% per-seat timeouts. Scenario and family breakdowns separate deliberate stress from ordinary mixed play. Full choosing windows model duration ceilings, not typical human play length. Strategy outcomes and observed handicap advantage are not proof of balance or fun."
+}

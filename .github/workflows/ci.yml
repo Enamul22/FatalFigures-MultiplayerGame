@@ -1,0 +1,47 @@
+name: Verify Fatal Figures
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: fatalfigures
+          POSTGRES_PASSWORD: ci-local-only
+          POSTGRES_DB: fatalfigures_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U fatalfigures"
+          --health-interval 3s --health-timeout 3s --health-retries 15
+    env:
+      TEST_DATABASE_URL: postgresql://fatalfigures:ci-local-only@localhost:5432/fatalfigures_test
+      BROWSER_DATABASE_URL: postgresql://fatalfigures:ci-local-only@localhost:5432/fatalfigures_browser_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run build
+      - run: npm test
+      - run: npm run simulate
+      - name: Create isolated browser fixture
+        run: node --input-type=module -e 'import pg from "pg"; const c=new pg.Client({connectionString:process.env.TEST_DATABASE_URL}); await c.connect(); await c.query("CREATE DATABASE fatalfigures_browser_test"); await c.end();'
+      - run: npx playwright install --with-deps chromium firefox
+      - run: npm run test:browser
+      - run: docker build -t fatalfigures:ci .
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-evidence
+          path: |
+            playwright-report/
+            test-results/
+            docs/simulation-results.json
+            docs/screenshots/

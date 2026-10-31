@@ -1,0 +1,1 @@
+import "../server/migrate.js";
