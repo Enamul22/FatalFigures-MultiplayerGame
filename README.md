@@ -1,5 +1,7 @@
 # Fatal Figures
 
+[![Verify Fatal Figures](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml/badge.svg)](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml)
+
 **Read the room. Choose your fatal figure.** A private-room multiplayer browser
 game by **Enamul Haque**: prediction, bluffing, changing statistical targets and
 exactly one elimination per phase. Built as the fourth independent portfolio

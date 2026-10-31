@@ -104,5 +104,17 @@ review steps.
 
 The GitHub workflow runs the build, formatting, 47 tests against PostgreSQL 18,
 seeded simulation, Chromium/Firefox end-to-end flows, and Docker image build.
-Remote run/commit verification will be linked here after the first push; local
-success is not presented as evidence of a remote run.
+[GitHub Actions run 41254110331](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/runs/41254110331)
+completed **successfully** against application commit
+`4cda8c307c4a2fbb72921f1668e0858f1d7b660a`. Actual job logs confirmed **47 tests
+passed**, **3 browser scenarios passed**, all 4,000 seeded simulations completed,
+and the Docker image exported successfully on Ubuntu. The database service was
+PostgreSQL 18; no portfolio/cloud credentials were supplied.
+
+An independent clean SSH clone also passed `npm ci` and the full build, then
+`npm prune --omit=dev`. The compiled server started with **only production
+dependencies** against a game-only local test fixture and returned
+`{status: "ok", authority: "single", durable: true}` from `/api/health`. That
+additional smoke-test server was stopped; the main local review server remains
+available on port 3000. Local Docker execution remains untested; the actual
+remote Docker build above is the recorded container verification.

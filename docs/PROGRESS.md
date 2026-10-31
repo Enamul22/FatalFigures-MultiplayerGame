@@ -33,5 +33,15 @@ Latest simulations use four strategy families and independent choice seeds;
 ordinary mixed play is reported separately from deliberate timeout/tie stress.
 See VERIFICATION.md for quantitative findings; approved rules remain unchanged.
 
-Remaining delivery checks: final local suite after review refinements, first
-commit/push, actual remote CI inspection (including Docker), final handoff.
+Delivery: application commit `4cda8c307c4a2fbb72921f1668e0858f1d7b660a` pushed to
+Enamul22/FatalFigures-MultiplayerGame main. GitHub attributed the commit to
+Enamul22. Actual remote run 41254110331 completed successfully: 47 tests,
+3 Chromium/Firefox browser scenarios, 4,000 seeded matches and Docker build.
+A separate clean clone built and started after pruning dev dependencies; its
+health check passed and that temporary server was stopped. Main review server
+and persistent local PostgreSQL remain on ports 3000 / 5544.
+
+Final checks found the three original repositories clean and at the exact
+baseline commits (FleetCare 2fede6a, ServicePlan 5824d47, FleetPulse 17d4c84).
+No existing database or hosting settings were touched. No deployment performed.
+The final documentation commit records this evidence; runtime code is unchanged.
