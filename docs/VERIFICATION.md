@@ -28,9 +28,9 @@ substitute a mocked store for durable verification.
 - `npm test`: **47 tests**, including PostgreSQL, real clients and process restart.
 - `npm run simulate`: **4,000 matches**, 1,000 per starting count; every resolved
   simulation replay independently recomputed.
-- `npm run test:browser`: **3 end-to-end scenarios**; game flows cover the cases
-  above. Browser-only test clocks are 8s choosing, 1.4s reveal, .2s intermission,
-  1.2s briefing, 1s phase result, and 6+1.2s tie. Those are deliberately shortened
+- `npm run test:browser`: **10 end-to-end scenarios**; game flows cover the cases
+  above. Browser-only test clocks are 12s choosing, 2s reveal, .7s intermission,
+  1.2s briefing, 1.5s phase result, and 9+1.5s tie. Those are deliberately shortened
   fixture settings; the production clock proof uses 90/20/10s, 15+10s phase
   screens and 30+15s ties.
 - `npm run format:check`: repository code and documentation formatting.
@@ -118,3 +118,12 @@ dependencies** against a game-only local test fixture and returned
 additional smoke-test server was stopped; the main local review server remains
 available on port 3000. Local Docker execution remains untested; the actual
 remote Docker build above is the recorded container verification.
+
+## Playing-room presentation follow-up
+
+See [ROOM_PRESENTATION.md](ROOM_PRESENTATION.md) for the oval table, stable seats,
+local dialogs, retained result, isolated countdown, optional audio, reduced motion
+and expanded browser checks. Backend/scoring/timing/persistence source and version
+remain unchanged. Earlier CI evidence above describes the initial delivery; the
+[current workflow](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml)
+verifies the updated room, with 47 backend tests and 10 browser scenarios.

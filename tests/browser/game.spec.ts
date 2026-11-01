@@ -7,6 +7,7 @@ import {
   type Page,
 } from "@playwright/test";
 const shot = async (p: Page, name: string) => {
+  await p.locator("header.topbar").scrollIntoViewIfNeeded();
   await p.screenshot({
     path: `docs/screenshots/${name}.png`,
     fullPage: true,
@@ -118,7 +119,7 @@ test("desktop + phone, keyboard/touch, validation, mute and reduced motion", asy
   await shot(mobile, "05-circle-phone");
   await mobile.getByRole("button", { name: "Lock figure ↗" }).tap();
   await expect(
-    mobile.getByRole("heading", { name: "Your move is sealed." }),
+    mobile.getByText("Your move is sealed. Watch the table.", { exact: true }),
   ).toBeVisible();
   await shot(mobile, "06-locked-phone");
   await phone.close();
@@ -165,6 +166,15 @@ test("five independent sessions, Chromium + Firefox, full 5→4→3→2→champi
     await expect(
       pages[0].getByLabel("Your figure", { exact: true }),
     ).toBeVisible();
+    const stableSeats = await pages[0]
+      .locator(".fixed-seat")
+      .evaluateAll((els) =>
+        els.map((el) => ({
+          id: el.getAttribute("data-seat-id"),
+          left: (el as HTMLElement).style.left,
+          top: (el as HTMLElement).style.top,
+        })),
+      );
     await shot(pages[0], "08-table-desktop");
     // A genuine human timeout in round one. Others collide at zero.
     for (let i = 0; i < 4; i++) {
@@ -174,7 +184,9 @@ test("five independent sessions, Chromium + Firefox, full 5→4→3→2→champi
     expect(received[4].some((s) => s.includes('"pick":0'))).toBe(false);
     await pages[0].reload();
     await expect(
-      pages[0].getByRole("heading", { name: "Your move is sealed." }),
+      pages[0].getByText("Your move is sealed. Watch the table.", {
+        exact: true,
+      }),
     ).toBeVisible();
     await expect(
       pages[0].getByText("Missed deadline", { exact: true }).first(),
@@ -185,7 +197,7 @@ test("five independent sessions, Chromium + Firefox, full 5→4→3→2→champi
       sawCircle = false,
       lastKey = "",
       finished = false;
-    for (let step = 0; step < 300 && !finished; step++) {
+    for (let step = 0; step < 600 && !finished; step++) {
       const observer = pages[0];
       if (
         await observer
@@ -225,6 +237,33 @@ test("five independent sessions, Chromium + Firefox, full 5→4→3→2→champi
     expect(sawTie).toBe(true);
     expect(sawShared).toBe(true);
     expect(sawCircle).toBe(true);
+    expect(
+      await pages[0].locator(".fixed-seat").evaluateAll((els) =>
+        els.map((el) => ({
+          id: el.getAttribute("data-seat-id"),
+          left: (el as HTMLElement).style.left,
+          top: (el as HTMLElement).style.top,
+        })),
+      ),
+    ).toEqual(stableSeats);
+    await expect(pages[0].locator(".fixed-seat.is-eliminated")).toHaveCount(4);
+    await expect(
+      pages[0].locator(".fixed-seat.is-eliminated .seat-light").first(),
+    ).toHaveCSS("opacity", "0");
+    {
+      await pages[0]
+        .getByRole("button", { name: "Watch the table", exact: true })
+        .click();
+      await pages[0].locator("header.topbar").scrollIntoViewIfNeeded();
+      await pages[0].screenshot({
+        path: "docs/screenshots/17-fixed-seats-champion.png",
+        fullPage: true,
+        animations: "disabled",
+      });
+      await pages[0]
+        .getByRole("button", { name: "View results", exact: true })
+        .click();
+    }
     await shot(pages[0], "10-results-desktop");
     const last = JSON.parse(received[0].at(-1)!.slice(2))[1];
     expect(last.match.phases.map((p: any) => p.active.length)).toEqual([
@@ -275,7 +314,7 @@ test("complete labelled practice with bots and a two-seat start", async ({
   await expect(
     page.getByRole("heading", { name: "The Final Circle", exact: true }),
   ).toBeVisible();
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     await closeTutorial(page);
     if (await page.getByText("PRACTICE RESULTS", { exact: true }).isVisible())
       break;

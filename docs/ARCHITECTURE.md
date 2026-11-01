@@ -143,3 +143,11 @@ only the resolved phase’s seed is revealed.
 Socket.IO transport ordering/recovery is useful but does not itself implement
 this application’s durable exactly-once effects. Those follow from transactions,
 receipts, fenced authority and versioned resolution.
+
+## Playing-room presentation
+
+The current CSS/SVG room consumes the same public snapshots and seat-private lock
+receipts. Its isolated countdown component cannot submit or advance play. Fixed
+seat IDs, read-only own receipt dialogs, retained resolved results, quiet resync
+baselines and optional gesture-unlocked audio do not change the authority or
+privacy protocol. See [ROOM_PRESENTATION.md](ROOM_PRESENTATION.md).

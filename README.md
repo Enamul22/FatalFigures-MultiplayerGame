@@ -7,7 +7,7 @@ game by **Enamul Haque**: prediction, bluffing, changing statistical targets and
 exactly one elimination per phase. Built as the fourth independent portfolio
 project. Version **1.0.0**. No deployment or public game URL is claimed.
 
-![Fatal Figures game table](docs/screenshots/08-table-desktop.png)
+![Fatal Figures game table](docs/screenshots/14-oval-table-revealed.png)
 
 ## Play
 
@@ -113,6 +113,15 @@ npm run verify:draw -- draw.json
 The helpers recompute exact effects and the committed fallback. They do not prove
 that a trusted server operator could never cheat or that client network timing was
 fair. Unresolved choices are never included in replay downloads.
+
+## Playing room
+
+An atmospheric oval table keeps every original seat in place across eliminations.
+Central stage dialogs leave a sticky timer and compact score ledger visible;
+after locking, watch the table or reopen your own read-only receipt. The latest
+revealed phase/round remains in a separate panel. Short CSS/SVG effects, reduced
+motion, gesture-enabled synthesized audio, mute and volume are presentation only.
+See [room design and verification](docs/ROOM_PRESENTATION.md).
 
 ## Engineering
 

@@ -51,3 +51,21 @@ Landing-page refinement requested by Enamul: renamed the computer-play button to
 "MEAN × 0.8" from the yellow illustration. Actual phase rules and production
 timing remain unchanged. Build and the desktop/phone browser scenario passed;
 updated both landing screenshots and the existing button selectors.
+
+Playing-room presentation upgrade (1 November 2026): retained Fatal Figures 1.0.0,
+the existing repository, identical landing JSX/screenshots, and unchanged backend,
+engine, production timing, schema and protocol. Extracted reusable presentation
+components and added the oval CSS/SVG room, stable roster-based seats, local stage
+and tutorial dialogs, private receipt reopening, sticky timer/score ledger,
+retained phase/round reveal, live-only short effects and optional original synth
+audio with mute/volume/intermission controls. Reconnect/resync establishes a quiet
+current-state baseline rather than replaying missed effects.
+
+Local verification: build and 47 existing backend/PostgreSQL/process tests passed;
+all 10 expanded browser scenarios passed, including Chromium/Firefox full match,
+2/3/4/5-seat starts, privacy, receipts, stable eliminated seats, retained results,
+reconnects, rematch, phone/touch, reduced motion, real audio scheduling and rejected
+or unavailable audio. A scene DOM observer remained at zero mutations across
+countdown ticks. Fixed top-seat card clipping found during visual review.
+See ROOM_PRESENTATION.md for component details, screenshot index and honest device
+verification limits. No deployment, new repository, database or version bump.
