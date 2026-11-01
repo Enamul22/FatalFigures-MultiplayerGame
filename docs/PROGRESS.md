@@ -45,3 +45,9 @@ Final checks found the three original repositories clean and at the exact
 baseline commits (FleetCare 2fede6a, ServicePlan 5824d47, FleetPulse 17d4c84).
 No existing database or hosting settings were touched. No deployment performed.
 The final documentation commit records this evidence; runtime code is unchanged.
+
+Landing-page refinement requested by Enamul: renamed the computer-play button to
+"Play with computer", removed the maximum-duration marketing block, and removed
+"MEAN × 0.8" from the yellow illustration. Actual phase rules and production
+timing remain unchanged. Build and the desktop/phone browser scenario passed;
+updated both landing screenshots and the existing button selectors.

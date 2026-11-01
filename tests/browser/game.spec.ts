@@ -27,7 +27,7 @@ async function create(p: Page, name: string, bots = 0) {
   await p.goto("/");
   await p
     .getByRole("button", {
-      name: bots ? "Practice with bots" : "Play with friends ↗",
+      name: bots ? "Play with computer" : "Play with friends ↗",
       exact: true,
     })
     .click();
@@ -93,7 +93,7 @@ test("desktop + phone, keyboard/touch, validation, mute and reduced motion", asy
   await expect(mobile.locator("body")).toHaveJSProperty("scrollWidth", 390);
   await shot(mobile, "02-landing-phone");
   await mobile
-    .getByRole("button", { name: "Practice with bots", exact: true })
+    .getByRole("button", { name: "Play with computer", exact: true })
     .tap();
   await mobile.getByLabel("Your nickname").fill("Enamul");
   await mobile.getByLabel("Strategy bots").selectOption("1");

@@ -878,7 +878,7 @@ function App() {
                   className="secondary"
                   onClick={() => setMode("practice")}
                 >
-                  Practice with bots
+                  Play with computer
                 </button>
               </div>
               <button className="join-link" onClick={() => setMode("join")}>
@@ -894,11 +894,6 @@ function App() {
                   3 ROUNDS
                   <br />
                   <small>ONE ELIMINATION</small>
-                </span>
-                <span>
-                  ≤ 29 MIN
-                  <br />
-                  <small>TO THE FINAL FIGURE</small>
                 </span>
               </div>
             </div>
@@ -926,7 +921,6 @@ function App() {
                 </div>
               </div>
               <div className="art-footer">
-                <span>MEAN × 0.8</span>
                 <span>ONLY THE CLOSEST KNOW.</span>
               </div>
             </div>
