@@ -11,8 +11,7 @@ services:
     dockerContext: .
     # A stopped old build may resume only as a parked process. Only the approved
     # exact commit can start Node and acquire the unchanged database lease.
-    dockerCommand: >-
-      /bin/sh -c 'if [ -z "$FATAL_RELEASE_COMMIT" ] || [ "$RENDER_GIT_COMMIT" != "$FATAL_RELEASE_COMMIT" ]; then echo "Release parked: build $RENDER_GIT_COMMIT is not approved $FATAL_RELEASE_COMMIT"; exec sleep 86400; fi; exec node dist/server/index.js'
+    dockerCommand: /app/render-start.sh
     numInstances: 1
     autoDeployTrigger: "off"
     healthCheckPath: /api/health

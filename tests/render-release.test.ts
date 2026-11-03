@@ -1,18 +1,15 @@
 import { it, expect } from "vitest";
-import { readFileSync } from "node:fs";
 import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawn } from "node:child_process";
-const yaml = readFileSync("render.yaml", "utf8");
-// Execute the actual folded Docker Command committed for Render, not a copy.
-const command = yaml
-  .match(/    dockerCommand: >-\n((?:      [^\n]+\n)+)/)![1]
-  .split("\n")
-  .map((s) => s.trim())
-  .join(" ")
-  .trim();
-for (const scenario of ["approved", "old-build", "missing-pin"])
+const command = "/bin/sh scripts/render-start.sh";
+for (const scenario of [
+  "approved",
+  "old-build",
+  "missing-pin",
+  "local-container",
+])
   it(`Render release guard: ${scenario}`, async () => {
     const dir = await mkdtemp(join(tmpdir(), "fatal-release-guard-")),
       marker = join(dir, "started");
@@ -27,15 +24,25 @@ for (const scenario of ["approved", "old-build", "missing-pin"])
         ...process.env,
         PATH: dir + ":" + process.env.PATH,
         FATAL_TEST_MARKER: marker,
-        RENDER_GIT_COMMIT: scenario === "old-build" ? "b".repeat(40) : approved,
-        FATAL_RELEASE_COMMIT: scenario === "missing-pin" ? "" : approved,
+        RENDER: scenario === "local-container" ? "" : "true",
+        RENDER_GIT_COMMIT:
+          scenario === "local-container"
+            ? ""
+            : scenario === "old-build"
+              ? "b".repeat(40)
+              : approved,
+        FATAL_RELEASE_COMMIT: ["missing-pin", "local-container"].includes(
+          scenario,
+        )
+          ? ""
+          : approved,
       },
       stdio: ["ignore", "pipe", "pipe"],
     });
     let output = "";
     child.stdout.on("data", (b) => (output += String(b)));
     try {
-      if (scenario === "approved") {
+      if (scenario === "approved" || scenario === "local-container") {
         const code = await new Promise<number | null>((resolve) =>
           child.once("exit", resolve),
         );
