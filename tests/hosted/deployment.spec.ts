@@ -5,12 +5,31 @@ import type { Snapshot } from "../../shared/engine";
 const control = process.env.FATAL_RESTART_CONTROL;
 function observe(page: Page) {
   let latest: Snapshot | undefined;
+  const accept = (s: string) => {
+    if (s.startsWith('42["state",')) latest = JSON.parse(s.slice(2))[1];
+    const ack = s.match(/^43\d+(\[.*)$/s);
+    if (ack) {
+      const value = JSON.parse(ack[1])[0]?.value;
+      if (value?.state) latest = value.state;
+    }
+  };
   page.on("websocket", (ws) =>
-    ws.on("framereceived", (frame) => {
-      const s = String(frame.payload);
-      if (s.startsWith('42["state",')) latest = JSON.parse(s.slice(2))[1];
-    }),
+    ws.on("framereceived", (frame) => accept(String(frame.payload))),
   );
+  // Socket.IO can acknowledge resume over polling before upgrading to WebSocket.
+  page.on("response", async (response) => {
+    if (
+      response.url().includes("/socket.io/") &&
+      response.url().includes("transport=polling")
+    ) {
+      try {
+        for (const packet of (await response.text()).split("\x1e"))
+          accept(packet);
+      } catch {
+        /* disconnected polling request */
+      }
+    }
+  });
   return () => latest;
 }
 async function tutorial(page: Page) {
@@ -222,6 +241,16 @@ test("public HTTPS gameplay, privacy, audio, reconnect and controlled restart pe
       host.getByRole("button", { name: "View my locked number" }),
     ).toBeEnabled();
     const interruptedId = hostState()!.match!.id;
+    // Private recovery material for an operator interrupted during maintenance.
+    // Never print these capabilities or put the control directory in Git.
+    await writeFile(
+      control + ".seats.json",
+      JSON.stringify({
+        host: await host.evaluate(() => sessionStorage.getItem("ff-seat")),
+        guest: await guest.evaluate(() => sessionStorage.getItem("ff-seat")),
+      }),
+      { mode: 0o600 },
+    );
     await writeFile(
       control,
       JSON.stringify({

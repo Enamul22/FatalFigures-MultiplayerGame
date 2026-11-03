@@ -1,7 +1,9 @@
 # Verification record
 
 Review date: **3 November 2026**. Node **24.22.1**, TypeScript, real local
-PostgreSQL **18**, Chromium **156** and Firefox **157**. No cloud deployment.
+PostgreSQL **18**, Chromium **156** and Firefox **157**. The original local
+verification is retained below; the subsequent public deployment is recorded in
+[DEPLOYMENT_RECORD.md](DEPLOYMENT_RECORD.md).
 
 ## Automated checks
 
@@ -87,7 +89,7 @@ The approved scoring, multipliers and handicaps were **not changed** to improve
 these results. Automated mathematical symmetry and these bot simulations do not
 prove fun, optimal strategy, immunity to exploitation or human comprehension.
 
-## Isolation and limits
+## Original local delivery isolation and limits (historical)
 
 All database tests used game-only local `*_test` fixtures. The live local review
 uses its own `fatalfigures` database. No existing Neon database was queried or
@@ -147,3 +149,11 @@ visually inspected. [Full current design, licensing and limits](ROOM_PRESENTATIO
 The initial delivery CI links above are historical evidence for those commits,
 not a claim that they ran the current refinements. The existing workflow runs
 the current checks on this push. No deployment or portfolio/cloud DB change.
+
+## Authorized Render + Neon deployment
+
+See [DEPLOYMENT_RECORD.md](DEPLOYMENT_RECORD.md) for the actual public resources,
+CI commits, HTTPS browser checks, controlled restart evidence and screenshots
+18–22. [HOSTING.md](HOSTING.md) records the tested exclusive-authority handover.
+Public tests use real production timers and game-only QA rooms without resetting
+the production database. Render/Neon Free quotas and cold-start limits apply.

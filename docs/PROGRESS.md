@@ -85,3 +85,22 @@ Verification: build, 50 backend tests, 14 browser scenarios, 4,000 seeded/replay
 simulations, formatter and visual desktop/phone review; current evidence and
 limits are in ROOM_PRESENTATION.md and VERIFICATION.md. Version remains 1.0.0;
 existing repository, landing and other portfolio projects preserved; no deploy.
+
+## Authorized public deployment — 3 November 2026
+
+Enamul authorized Render + dedicated Neon hosting without a design/version change.
+Verified Enamul22 GitHub/SSH, Enamul's Render account and Enamul FDE Neon ownership.
+Created only game resources in Frankfurt, selected Free compute, left automatic
+deployments Off and kept exact origin/connection variables private. Migration 001
+was tested twice on an isolated game Neon branch before production application.
+
+Render's rolling lifecycle was explicitly tested. A bounded unready replacement,
+full-SHA approval entrypoint and exact-old-PID helper permit a fenced handover
+without removing the original exclusive lease. Same-commit Suspend/Resume was
+verified separately; Resume uses its previous successful build/configuration.
+Actual HTTPS gameplay, independent sessions, privacy, phone, audio, ordinary/tied
+finals, elimination, replay/rematch and durable restart were exercised. A JSONB
+key-order sensitivity in the offline draw verifier was fixed with actual database
+regression coverage. See DEPLOYMENT_RECORD.md and HOSTING.md for resources,
+precise evidence, limits and the future maintenance procedure. No other portfolio
+application/database was changed; no paid resource or custom domain was added.

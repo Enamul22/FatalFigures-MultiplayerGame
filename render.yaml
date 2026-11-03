@@ -1,4 +1,4 @@
-# One server only. Follow docs/HOSTING.md for controlled releases; never use a rolling deploy.
+# One server only. Follow docs/HOSTING.md for controlled releases; never use an unattended rolling deploy.
 services:
   - type: web
     name: fatalfigures-enamul22
@@ -9,8 +9,8 @@ services:
     branch: main
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    # A stopped old build may resume only as a parked process. Only the approved
-    # exact commit can start Node and acquire the unchanged database lease.
+    # Each replacement must match its approved full SHA before starting Node.
+    # Resume reuses the previous successful deployment configuration.
     dockerCommand: /app/render-start.sh
     numInstances: 1
     autoDeployTrigger: "off"

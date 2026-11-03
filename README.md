@@ -5,7 +5,8 @@
 **Read the room. Choose your fatal figure.** A private-room multiplayer browser
 game by **Enamul Haque**: prediction, bluffing, changing statistical targets and
 exactly one elimination per phase. Built as the fourth independent portfolio
-project. Version **1.0.0**. No deployment or public game URL is claimed.
+project. Version **1.0.0**. [Play the public game](https://fatalfigures-enamul22.onrender.com).
+Render Free may need about a minute to wake after inactivity.
 
 ![Fatal Figures game table](docs/screenshots/14-oval-table-revealed.png)
 
@@ -158,6 +159,6 @@ External background music is CC0 and credited in the audio licensing document.
 The working name does not assert trademark clearance. Application code is MIT licensed.
 
 FleetCare, ServicePlan and FleetPulse remain separate, unchanged projects. No
-existing users, sessions, private files or database records were imported. This
-review build uses game-only local PostgreSQL; no cloud database or hosting secret
-was changed and no hosting was deployed.
+existing users, sessions, private files or database records were imported. The public game uses its own Neon project and a single Render Free server.
+See [deployment evidence and free-tier limits](docs/DEPLOYMENT_RECORD.md) and
+[safe maintenance instructions](docs/HOSTING.md).
