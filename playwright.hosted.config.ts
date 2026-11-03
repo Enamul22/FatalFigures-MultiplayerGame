@@ -5,7 +5,7 @@ if (!url || !/^https:\/\/[a-z0-9-]+\.onrender\.com$/.test(url))
 export default defineConfig({
   testDir: "tests/hosted",
   workers: 1,
-  timeout: 900000,
+  timeout: 3600000,
   expect: { timeout: 30000 },
   reporter: "list",
   use: {

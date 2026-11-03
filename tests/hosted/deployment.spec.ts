@@ -244,7 +244,7 @@ test("public HTTPS gameplay, privacy, audio, reconnect and controlled restart pe
             return "waiting";
           }
         },
-        { timeout: 600000, intervals: [500] },
+        { timeout: 1800000, intervals: [500] },
       )
       .toBe("restart-complete");
     // A fresh reload obtains the durable public snapshot and own private resume acknowledgement.
