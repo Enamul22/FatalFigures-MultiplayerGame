@@ -73,3 +73,20 @@ it("refuses a second authoritative process against the same game store", async (
 it("fails safely without database configuration", () => {
   expect(() => new Store("")).toThrow("DATABASE_URL");
 });
+
+it("verifies committed draws after an actual PostgreSQL JSONB round trip", async () => {
+  const { draw, verifyDraw } = await import("../shared/draw.js");
+  const s = new Store(TEST_URL);
+  try {
+    const original = draw("jsonb-regression", ["c", "a", "b"]);
+    const restored = (
+      await s.pool.query("select $1::jsonb as value", [
+        JSON.stringify(original),
+      ])
+    ).rows[0].value;
+    expect(verifyDraw(restored)).toBe(true);
+    expect(verifyDraw({ ...restored, eliminated: "tampered" })).toBe(false);
+  } finally {
+    await s.close();
+  }
+});

@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 import { createHash } from "node:crypto";
 export const commitment = (seed: string) =>
   createHash("sha256").update(seed).digest("hex");
@@ -34,5 +35,6 @@ export function draw(seed: string, candidates: string[]): Draw {
   };
 }
 export function verifyDraw(d: Draw): boolean {
-  return JSON.stringify(draw(d.seed, d.candidates)) === JSON.stringify(d);
+  // PostgreSQL JSONB preserves values, but not JavaScript property order.
+  return isDeepStrictEqual(draw(d.seed, d.candidates), d);
 }

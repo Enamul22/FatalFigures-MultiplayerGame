@@ -180,6 +180,10 @@ describe("rank handicaps and committed fallback", () => {
     expect(d).toEqual(draw("secret", ["a", "b", "c"]));
     expect(d.commitment).toBe(commitment("secret"));
     expect(verifyDraw(d)).toBe(true);
+    const jsonbOrder = Object.fromEntries(
+      Object.entries(d).reverse(),
+    ) as typeof d;
+    expect(verifyDraw(jsonbOrder)).toBe(true);
     expect(verifyDraw({ ...d, index: (d.index + 1) % 3 })).toBe(false);
     expect(d.candidates).toEqual(["a", "b", "c"]);
   });
