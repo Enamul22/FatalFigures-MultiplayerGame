@@ -69,7 +69,12 @@ export async function createApp(options: AppOptions) {
     throw Error("Timing overrides are test-only");
   const now = options.now ?? Date.now,
     store = new Store(options.url);
-  await store.claim(options.direct);
+  try {
+    await store.claim(options.direct);
+  } catch (error) {
+    await store.close();
+    throw error;
+  }
   const app = express();
   app.disable("x-powered-by");
   app.use(

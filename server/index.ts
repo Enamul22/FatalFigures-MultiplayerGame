@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { createApp } from "./app.js";
+import { startAuthority } from "./startup.js";
 const {
   DATABASE_URL,
   DATABASE_URL_UNPOOLED,
@@ -13,12 +13,18 @@ if (!DATABASE_URL || !DATABASE_URL_UNPOOLED || !ORIGIN)
   );
 if (process.env.NODE_ENV === "production" && !ORIGIN.startsWith("https://"))
   throw Error("Production ORIGIN must use HTTPS");
-const server = await createApp({
-  url: DATABASE_URL,
-  direct: DATABASE_URL_UNPOOLED,
-  origin: ORIGIN,
-  development: process.env.NODE_ENV !== "production",
-});
+const leaseWaitMs = Number(process.env.FATAL_LEASE_WAIT_MS ?? "0");
+if (!Number.isInteger(leaseWaitMs) || leaseWaitMs < 0 || leaseWaitMs > 300000)
+  throw Error("FATAL_LEASE_WAIT_MS must be an integer from 0 to 300000");
+const server = await startAuthority(
+  {
+    url: DATABASE_URL,
+    direct: DATABASE_URL_UNPOOLED,
+    origin: ORIGIN,
+    development: process.env.NODE_ENV !== "production",
+  },
+  leaseWaitMs,
+);
 server.http.listen(Number(PORT), HOST, () =>
   console.log(
     `Fatal Figures listening on ${HOST}:${PORT}; single authority, durable PostgreSQL.`,

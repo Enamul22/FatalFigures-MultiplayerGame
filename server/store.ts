@@ -10,6 +10,14 @@ export function authorized(hashValue: string, token: string) {
     b = Buffer.from(hash(token), "hex");
   return a.length === b.length && timingSafeEqual(a, b);
 }
+export class AuthorityBusyError extends Error {
+  constructor() {
+    super(
+      "Fatal Figures supports one authoritative server. Another writer holds the database lease.",
+    );
+    this.name = "AuthorityBusyError";
+  }
+}
 export class Store {
   pool: pg.Pool;
   lease: pg.Client | null = null;
@@ -76,9 +84,7 @@ export class Store {
     );
     if (!rows[0].owned) {
       await c.end();
-      throw Error(
-        "Fatal Figures supports one authoritative server. Another writer holds the database lease.",
-      );
+      throw new AuthorityBusyError();
     }
     await c.query(
       "INSERT INTO fatalfigures.authority(singleton,lease_id) VALUES(true,$1) ON CONFLICT(singleton) DO UPDATE SET lease_id=EXCLUDED.lease_id",

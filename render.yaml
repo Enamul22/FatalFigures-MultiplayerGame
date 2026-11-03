@@ -31,3 +31,5 @@ services:
         sync: false
       - key: FATAL_RELEASE_COMMIT
         sync: false
+      - key: FATAL_LEASE_WAIT_MS
+        value: "180000"
