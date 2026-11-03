@@ -63,7 +63,8 @@ normally starts the final at 0 against −1.
 
 Only players tied for the worst main-phase performance enter one tiebreak. It
 uses the same phase formula over those participants; a final uses the circle.
-The tiebreak has a single 45-second budget including reveal: 30 choose + 15 reveal.
+Earlier-phase tiebreaks have a single 45-second budget: 30 choose + 15 reveal.
+A final tiebreak announces the champion as soon as its result is resolved and committed.
 Rank its loss, then true accuracy (or circle wins). It does not alter phase totals.
 
 If still tied, draw **only among the still-tied candidates**. A secret independent
@@ -76,7 +77,11 @@ it does not remove the need to trust the server operator.
 
 90 seconds choosing + 20 reveal + 10 score/intermission per main round; locks may
 reveal early. Each phase has a 15-second rule briefing and 10-second elimination
-screen. Four phases + four possible tiebreaks = **28m40s** for five starters.
+screen in earlier phases. The decisive final reveal immediately commits and
+announces the champion, including any required tiebreak/fallback result; there is
+no redundant final intermission or elimination screen. A tied main final still
+reveals before the required tiebreak. Four phases + four possible tiebreaks now
+fit within **28m05s** for five starters.
 No host pause, reconnect extension or animation acknowledgement gate exists.
 
 If everyone leaves, a room records Abandoned after 60 seconds. Infrastructure

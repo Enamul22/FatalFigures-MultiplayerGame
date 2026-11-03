@@ -151,3 +151,9 @@ receipts. Its isolated countdown component cannot submit or advance play. Fixed
 seat IDs, read-only own receipt dialogs, retained resolved results, quiet resync
 baselines and optional gesture-unlocked audio do not change the authority or
 privacy protocol. See [ROOM_PRESENTATION.md](ROOM_PRESENTATION.md).
+
+The decisive final main/tiebreak resolution now calls the existing phase-finisher
+before the same transaction commits. Final result, seed/draw evidence, elimination,
+champion, finished status and timestamp are atomic. Earlier phases retain their
+original transitions. A tied main final finishes its reveal and then opens its
+required tiebreak without an intermission. No schema/protocol change is needed.

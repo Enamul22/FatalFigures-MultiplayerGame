@@ -638,84 +638,7 @@
   font-size: 8px;
   color: #d1bd8a;
 }
-.room-result-column {
-  border: 1px solid #34402b;
-  border-radius: 7px;
-  background: #151d12;
-  padding: 18px;
-  min-width: 0;
-}
-.latest-result > .eyebrow {
-  font-size: 7px;
-}
-.latest-result > h2 {
-  font-size: 22px;
-  letter-spacing: -0.03em;
-  margin: 12px 0 8px;
-}
-.latest-result > p {
-  font-size: 10px;
-}
-.latest-picks {
-  display: grid;
-  gap: 7px;
-  margin-top: 18px;
-}
-.latest-picks > div {
-  display: grid;
-  grid-template-columns: 1fr 32px;
-  gap: 4px 8px;
-  padding: 10px;
-  background: #1b2516;
-  border: 1px solid #34442b;
-  border-radius: 4px;
-}
-.latest-picks span {
-  font-size: 10px;
-  overflow-wrap: anywhere;
-}
-.latest-picks b {
-  font-family: monospace;
-  font-weight: 400;
-  font-size: 20px;
-  grid-row: span 2;
-  text-align: right;
-}
-.latest-picks small {
-  font-size: 6px;
-  letter-spacing: 0.5px;
-  color: #8f9e80;
-}
-.latest-picks > div.winner {
-  border-color: #7a9352;
-  color: var(--accent);
-}
-.latest-result summary,
-.room-commitment summary {
-  font-size: 9px;
-}
-.latest-result .round-display {
-  margin-top: 18px;
-}
-.latest-result .number-line {
-  display: none;
-}
-.latest-result .calculation h2 {
-  font-size: 20px;
-}
-.latest-result .calculation h2 span {
-  font-size: 23px;
-}
-.latest-result .calculation p {
-  font-size: 9px;
-}
-.latest-result table {
-  min-width: 440px;
-}
-.latest-result .empty-result {
-  font-size: 11px;
-  margin: 20px 0;
-}
+
 .room-commitment {
   padding-bottom: 0;
 }
@@ -873,28 +796,7 @@
   .hud-formula small {
     font-size: 6px;
   }
-  .room-result-column {
-    margin-top: 18px;
-    padding: 15px;
-  }
-  .latest-picks {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-  }
-  .latest-picks > div {
-    display: flex;
-    flex-direction: column;
-    padding: 9px;
-  }
-  .latest-picks span {
-    font-size: 9px;
-  }
-  .latest-picks b {
-    text-align: left;
-  }
-  .latest-picks small {
-    font-size: 5px;
-  }
+
   .room-scene {
     height: 560px;
   }
@@ -1119,12 +1021,7 @@
   .room-audio .text-button {
     font-size: 7px;
   }
-  .latest-result > h2 {
-    font-size: 20px;
-  }
-  .latest-picks {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
   .room-finale .finale-actions {
     flex-direction: column;
   }
@@ -1207,5 +1104,440 @@
   }
   .fixed-seat[data-seat-zone="north"] .number-card {
     top: 72px;
+  }
+}
+
+/* Table-first room: all live totals and figures belong to their fixed seat. */
+.theatre-room .room-dashboard,
+.room-content {
+  display: block;
+}
+.theatre-room .room-dashboard {
+  padding: 8px 0;
+  margin-bottom: 14px;
+}
+.theatre-room .room-hud {
+  padding: 0 4px 8px;
+}
+.room-dashboard .room-audio {
+  padding: 5px 4px 0;
+  border-top: 1px solid #344129;
+  gap: 18px;
+}
+.room-dashboard .room-audio button {
+  min-height: 36px;
+  font-size: 10px;
+}
+.room-dashboard .room-audio label {
+  font-size: 10px;
+  color: #cad7b9;
+}
+.room-scene {
+  height: 740px;
+}
+.room-scene.is-dimmed {
+  opacity: 0.78;
+  filter: blur(0.5px);
+}
+.fixed-seat {
+  width: 250px;
+}
+.avatar {
+  width: 96px;
+  height: 100px;
+  filter: drop-shadow(
+    0 0 12px color-mix(in srgb, var(--seat-accent) 28%, transparent)
+  );
+}
+.seat-light {
+  width: 175px;
+  height: 170px;
+  top: -58px;
+  opacity: 0.28;
+}
+.seat-name {
+  font-size: 16px;
+  line-height: 1.25;
+  margin-top: 8px;
+}
+.seat-name small {
+  font-size: 9px;
+  padding: 3px 5px;
+}
+.seat-status {
+  font-size: 10px;
+  line-height: 1.4;
+  display: block;
+  margin-top: 6px;
+  color: #d2dfbd;
+  letter-spacing: 0.5px;
+}
+.seat-score,
+.number-card,
+.fixed-seat[data-seat-zone="north"] .number-card {
+  position: absolute;
+  top: 10px;
+  width: 65px;
+  height: 87px;
+  margin: 0;
+}
+.number-card,
+.fixed-seat[data-seat-zone="north"] .number-card {
+  left: 0;
+}
+.seat-score {
+  right: 0;
+  background: #243344;
+  color: #eef4ff;
+  border: 1px solid #9db9dc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  filter: drop-shadow(0 4px 5px #000b);
+}
+.seat-score b {
+  font-size: 32px;
+  font-weight: 400;
+}
+.seat-score > span,
+.figure-label {
+  position: absolute;
+  top: -17px;
+  left: -8px;
+  right: -8px;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  white-space: nowrap;
+  color: #ecf6db;
+}
+.seat-score > small {
+  font-size: 8px;
+  color: #c9d9ed;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+.figure-label {
+  text-align: center;
+}
+.card-back,
+.card-face {
+  font-size: 32px;
+}
+.card-back small,
+.card-face small {
+  font-size: 8px;
+  letter-spacing: 0.4px;
+}
+.number-card.is-empty .card-back {
+  border-style: dashed;
+  color: #a6b598;
+  background: #192115;
+}
+.fixed-seat.is-eliminated .seat-score {
+  color: #b0b8a5;
+  background: #20281c;
+  border-color: #68735e;
+}
+.fixed-seat.is-eliminated .seat-status {
+  color: #a5b296;
+}
+.fixed-seat.is-eliminated .avatar {
+  opacity: 0.38;
+  filter: grayscale(0.7);
+}
+.table-inscription {
+  opacity: 1;
+}
+.table-inscription > span {
+  font-size: 11px;
+}
+.table-inscription > b {
+  font-size: 52px;
+  padding: 15px 0 8px;
+}
+.table-inscription > small {
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  padding: 3px 0;
+}
+.table-inscription > .centre-outcome {
+  color: #e4f2cd;
+  max-width: 230px;
+  line-height: 1.4;
+}
+.room-caption {
+  font-size: 9px;
+}
+.room-dialog {
+  max-height: min(590px, calc(100dvh - 210px));
+  scroll-margin-top: 195px;
+}
+.room-dialog .room-scoreboard {
+  text-align: left;
+  margin: 12px 0 20px;
+}
+.room-dialog .room-scoreboard table {
+  min-width: 300px;
+}
+.final-reveal {
+  margin: 20px 0;
+  border-top: 1px solid #50613c;
+  padding-top: 16px;
+}
+.final-reveal .number-line {
+  display: none;
+}
+.final-reveal .calculation {
+  display: none;
+}
+.final-reveal .table-scroll {
+  margin-top: 12px;
+}
+.leave-room-button {
+  min-height: 44px;
+  padding: 10px 18px;
+  margin-left: 12px;
+  border: 1px solid #a6b68e;
+  border-radius: 5px;
+  background: #2d3b23;
+  color: #eff9de;
+  font-size: 12px;
+  font-weight: 600;
+}
+.leave-room-button:hover {
+  background: #435433;
+  border-color: #dcff73;
+}
+.room-submit-error {
+  padding: 12px;
+  color: #ffe2c9;
+  border: 1px solid #b87e50;
+  background: #3b281c;
+}
+@media (max-width: 850px) {
+  .room-scene {
+    height: 700px;
+  }
+  .fixed-seat {
+    width: 190px;
+  }
+  .avatar {
+    width: 74px;
+    height: 82px;
+  }
+  .seat-score,
+  .number-card,
+  .fixed-seat[data-seat-zone="north"] .number-card {
+    width: 49px;
+    height: 69px;
+    top: 6px;
+  }
+  .seat-score b,
+  .card-back,
+  .card-face {
+    font-size: 27px;
+  }
+  .seat-score > span,
+  .figure-label {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .seat-name {
+    font-size: 14px;
+  }
+  .seat-status {
+    font-size: 9px;
+  }
+  .table-inscription > b {
+    font-size: 42px;
+  }
+  .room-dialog {
+    scroll-margin-top: 195px;
+  }
+}
+@media (max-width: 500px) {
+  .theatre-room .room-hud h1 {
+    font-size: 24px;
+    margin: 4px 0 6px;
+  }
+  .room-hud .eyebrow {
+    font-size: 8px;
+  }
+  .room-clock b {
+    font-size: 36px;
+  }
+  .room-clock small,
+  .room-clock > span {
+    font-size: 8px;
+  }
+  .hud-formula {
+    font-size: 11px;
+  }
+  .hud-formula small {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+  .room-dashboard .room-audio {
+    gap: 4px 13px;
+  }
+  .room-dashboard .room-audio button {
+    font-size: 9px;
+    min-height: 32px;
+    padding: 4px 0;
+  }
+  .room-dashboard .room-audio label {
+    font-size: 9px;
+    gap: 4px;
+  }
+  .room-dashboard .room-audio input[type="range"] {
+    width: 66px;
+  }
+  .room-scene {
+    height: 740px;
+  }
+  .fixed-seat {
+    width: 148px;
+  }
+  .fixed-seat[data-seat-edge="left"] {
+    left: 23% !important;
+  }
+  .fixed-seat[data-seat-edge="right"] {
+    left: 77% !important;
+  }
+  .avatar {
+    width: 58px;
+    height: 66px;
+  }
+  .seat-score,
+  .number-card,
+  .fixed-seat[data-seat-zone="north"] .number-card {
+    width: 42px;
+    height: 61px;
+    top: 4px;
+  }
+  .number-card,
+  .fixed-seat[data-seat-zone="north"] .number-card {
+    left: 0;
+  }
+  .seat-score > span,
+  .figure-label {
+    font-size: 7px;
+    top: -15px;
+    letter-spacing: 0;
+  }
+  .seat-score b,
+  .card-back,
+  .card-face {
+    font-size: 25px;
+  }
+  .seat-score > small,
+  .card-back small,
+  .card-face small {
+    font-size: 7px;
+    letter-spacing: 0;
+  }
+  .seat-name {
+    font-size: 13px;
+    margin-top: 7px;
+  }
+  .seat-name small {
+    font-size: 8px;
+    padding: 2px 3px;
+  }
+  .seat-status {
+    font-size: 9px;
+    margin-top: 4px;
+  }
+  .seat-light {
+    width: 120px;
+    height: 130px;
+    top: -45px;
+  }
+  .oval-table {
+    width: 78%;
+    left: 11%;
+    height: 46%;
+    top: 30%;
+  }
+  .table-inscription > span {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+  .table-inscription > b {
+    font-size: 34px;
+    padding: 12px 0 6px;
+  }
+  .table-inscription > small {
+    font-size: 8px;
+    letter-spacing: 0.2px;
+  }
+  .table-inscription > .centre-outcome {
+    max-width: 120px;
+  }
+  .room-caption {
+    font-size: 7px;
+    letter-spacing: 0.3px;
+  }
+  .room-overlay {
+    padding: 14px;
+  }
+  .room-dialog {
+    max-height: min(500px, calc(100dvh - 230px));
+    scroll-margin-top: 210px;
+  }
+  .room-actions {
+    padding-top: 12px;
+  }
+  .leave-room-button {
+    padding: 10px 12px;
+    margin-left: 8px;
+    font-size: 11px;
+  }
+}
+
+.room-dashboard .room-audio label {
+  min-height: 32px;
+}
+.room-caption {
+  background: #10160e;
+  padding: 4px 0;
+}
+
+/* Fit the complete table beneath the authority HUD on shorter desktops. */
+@media (min-width: 851px) and (max-height: 850px) {
+  .room-scene {
+    height: clamp(540px, calc(100dvh - 185px), 740px);
+  }
+  .fixed-seat {
+    width: 210px;
+  }
+  .avatar {
+    width: 78px;
+    height: 82px;
+  }
+  .seat-score,
+  .number-card,
+  .fixed-seat[data-seat-zone="north"] .number-card {
+    width: 55px;
+    height: 72px;
+  }
+  .seat-name {
+    font-size: 14px;
+  }
+  .seat-status {
+    font-size: 9px;
+  }
+  .seat-score b,
+  .card-back,
+  .card-face {
+    font-size: 29px;
+  }
+  .room-scene[data-seat-count="5"] .fixed-seat[data-seat-zone="north"] {
+    top: 16% !important;
   }
 }

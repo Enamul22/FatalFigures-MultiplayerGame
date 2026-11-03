@@ -109,7 +109,7 @@ function App() {
     lastCircle = useRef(""),
     stateRef = useRef<Snapshot | null>(null),
     restoring = useRef(!!cap);
-  const audio = useRoomAudio();
+  const audio = useRoomAudio(state?.match?.status === "playing");
   const muted = audio.muted;
   const save = (c: Capability | null) => {
     capRef.current = c;
@@ -222,7 +222,12 @@ function App() {
     ...(state?.history ?? []),
     ...(state?.match ? [state.match] : []),
   ];
-  const leave = () =>
+  const leave = () => {
+    if (
+      state?.match?.status === "playing" &&
+      !window.confirm("Leave this active match? Your seat will be withdrawn.")
+    )
+      return;
     void action(async () => {
       await emit("leave");
       save(null);
@@ -230,6 +235,22 @@ function App() {
       stateRef.current = null;
       setReceipt(null);
       setHistory(false);
+    });
+  };
+  const sync = () =>
+    void action(async () => {
+      restoring.current = true;
+      setResyncing(true);
+      try {
+        const v = await emit("sync");
+        accept(v.state);
+        setReceipt(
+          v.pick === null ? null : { pick: v.pick, roundId: v.state.roundId },
+        );
+      } finally {
+        restoring.current = false;
+        setResyncing(false);
+      }
     });
   return (
     <div
@@ -284,27 +305,7 @@ function App() {
       {error && (
         <div className="error" role="alert">
           {error}{" "}
-          <button
-            className="text-button"
-            onClick={() =>
-              void action(async () => {
-                restoring.current = true;
-                setResyncing(true);
-                try {
-                  const v = await emit("sync");
-                  accept(v.state);
-                  setReceipt(
-                    v.pick === null
-                      ? null
-                      : { pick: v.pick, roundId: v.state.roundId },
-                  );
-                } finally {
-                  restoring.current = false;
-                  setResyncing(false);
-                }
-              })
-            }
-          >
+          <button className="text-button" onClick={sync}>
             Sync
           </button>
           {cap && !state && (
@@ -438,7 +439,7 @@ function App() {
               >
                 {history ? "Back to table" : "History & replay"}
               </button>
-              <button className="text-button" onClick={leave}>
+              <button className="leave-room-button" onClick={leave}>
                 Leave room
               </button>
             </div>
@@ -548,6 +549,8 @@ function App() {
               connected={connected}
               resyncing={resyncing}
               pending={pending}
+              submissionError={error}
+              onSync={sync}
               pick={pick}
               setPick={setPick}
               receipt={receipt?.roundId === state.roundId ? receipt : null}

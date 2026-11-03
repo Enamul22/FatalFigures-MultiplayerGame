@@ -1,8 +1,6 @@
 import { memo } from "react";
 import type { Snapshot } from "../../shared/engine";
-import { decimal, RULES } from "../../shared/rules";
-import { RoundDisplay } from "../presentation";
-import { seatPhase, type Revealed } from "./model";
+import { seatPhase } from "./model";
 import type { RoomAudio } from "./audio";
 export const Scoreboard = memo(function Scoreboard({
   state,
@@ -16,7 +14,7 @@ export const Scoreboard = memo(function Scoreboard({
   return (
     <section className="room-scoreboard" aria-label="Phase scoreboard">
       <div className="scoreboard-heading">
-        <span>THE LEDGER</span>
+        <span>PHASE SCORE BREAKDOWN</span>
         <small>START + ROUNDS = TOTAL</small>
       </div>
       <div className="scoreboard-scroll">
@@ -60,63 +58,6 @@ export const Scoreboard = memo(function Scoreboard({
     </section>
   );
 });
-export const LatestResult = memo(function LatestResult({
-  latest,
-  names,
-}: {
-  latest: Revealed | null;
-  names: Record<string, string>;
-}) {
-  return (
-    <section className="latest-result" aria-label="Latest revealed result">
-      <div className="eyebrow">LATEST REVEALED RESULT</div>
-      {latest ? (
-        <>
-          <h2>
-            Phase {latest.phase} ·{" "}
-            {latest.tiebreak ? "Tiebreak" : `Round ${latest.round}`}
-          </h2>
-          <p>
-            {RULES[latest.result.rule].name} ·{" "}
-            {latest.result.rule === "circle"
-              ? "Circle duel"
-              : latest.result.target
-                ? `Target ${decimal(latest.result.target)}`
-                : "No statistical target"}{" "}
-            · {latest.result.multiplier}×
-          </p>
-          <div className="latest-picks">
-            {latest.result.rows.map((row) => (
-              <div key={row.seatId} className={row.winner ? "winner" : ""}>
-                <span>{names[row.seatId]}</span>
-                <b>{row.pick ?? "—"}</b>
-                <small>
-                  {row.status === "collision"
-                    ? "DUPLICATE"
-                    : row.status === "timeout"
-                      ? "TIMEOUT"
-                      : row.winner
-                        ? "WINNER"
-                        : row.status.toUpperCase()}{" "}
-                  · {row.delta}
-                </small>
-              </div>
-            ))}
-          </div>
-          <details>
-            <summary>Calculation & deductions</summary>
-            <RoundDisplay round={latest.result} names={names} />
-          </details>
-        </>
-      ) : (
-        <p className="empty-result">
-          No figures revealed yet. Sealed choices stay private until the server
-          reveals them.
-        </p>
-      )}
-    </section>
-  );
-});
 export function AudioControls({ audio }: { audio: RoomAudio }) {
   return (
     <div className="room-audio" aria-label="Room audio controls">
@@ -153,7 +94,7 @@ export function AudioControls({ audio }: { audio: RoomAudio }) {
             void audio.unlock();
           }}
         />
-        Intermission suspense
+        Background music
       </label>
       {!audio.muted && audio.status !== "ready" && (
         <button

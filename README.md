@@ -117,11 +117,16 @@ fair. Unresolved choices are never included in replay downloads.
 ## Playing room
 
 An atmospheric oval table keeps every original seat in place across eliminations.
-Central stage dialogs leave a sticky timer and compact score ledger visible;
-after locking, watch the table or reopen your own read-only receipt. The latest
-revealed phase/round remains in a separate panel. Short CSS/SVG effects, reduced
-motion, gesture-enabled synthesized audio, mute and volume are presentation only.
-See [room design and verification](docs/ROOM_PRESENTATION.md).
+Each brighter avatar has labelled FIGURE and PHASE TOTAL cards. A sticky timer
+and audio controls remain visible over stage dialogs. Successful locks close
+entry automatically; an own read-only receipt can be reopened. Calculation and
+scoring details are available on demand, alongside History & replay. Final
+champions appear immediately with the decisive revealed choices.
+
+Optional continuous suspense music is locally hosted under CC0; source, terms
+and voluntary credit are in [audio licensing](web/public/audio/README.md).
+Short original cues, reduced motion, mute and volume remain lightweight and never
+delay gameplay. See [room design and verification](docs/ROOM_PRESENTATION.md).
 
 ## Engineering
 
@@ -131,7 +136,7 @@ fenced authority row, row locks, versioned checkpoints, append-only public event
 records and unique choice receipts provide application-level concurrency and
 recovery guarantees. The built frontend alone is **not** a playable hosted game.
 
-Production timers cap a five-seat schedule at **28m40s**; a 30-minute watchdog
+Production timers cap a five-seat schedule at **28m05s**; a 30-minute watchdog
 records Interrupted if the state machine cannot finish. A restart within 10 seconds
 and before the current deadline retains the original clock; otherwise Interrupted
 preserves committed history without inventing catch-up rounds. Whole-room human
@@ -149,7 +154,8 @@ Deploying multiple instances behind sticky sessions is not sufficient here.
 An original hobby adaptation inspired by _Alice in Borderland_ and Enamul’s
 earlier Python console experiment. Original geometric branding, interface and
 synthesized sound cues; no show footage/music, copied rulebook or affiliation.
-The working name does not assert trademark clearance. MIT licensed.
+External background music is CC0 and credited in the audio licensing document.
+The working name does not assert trademark clearance. Application code is MIT licensed.
 
 FleetCare, ServicePlan and FleetPulse remain separate, unchanged projects. No
 existing users, sessions, private files or database records were imported. This

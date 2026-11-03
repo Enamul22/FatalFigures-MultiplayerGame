@@ -11,7 +11,7 @@ import {
 import { RoomScene, QUIET, type RoomEffects } from "./RoomScene";
 import { RoomClock } from "./RoomClock";
 import { RoomDialog } from "./RoomDialog";
-import { AudioControls, LatestResult, Scoreboard } from "./RoomPanels";
+import { AudioControls, Scoreboard } from "./RoomPanels";
 import { eliminatedSeats, latestRevealed, seatPhase } from "./model";
 import type { RoomAudio } from "./audio";
 type Props = {
@@ -21,6 +21,8 @@ type Props = {
   connected: boolean;
   resyncing: boolean;
   pending: boolean;
+  submissionError: string;
+  onSync: () => void;
   pick: string;
   setPick: (p: string) => void;
   receipt: { pick: number; roundId: string } | null;
@@ -90,17 +92,18 @@ function useLiveEffects(
         state.stage === "finished" &&
         before.stage !== "finished" &&
         state.match!.status === "champion";
-    if (state.stage !== before.stage || !sameRound) liveAudio.current.stop();
     if (locks.some((id) => id !== meId)) liveAudio.current.cue("lock");
     if (reveal) liveAudio.current.cue("reveal");
     if (out.length) liveAudio.current.cue("elimination");
     if (champion) liveAudio.current.cue("champion");
-    if (state.stage !== before.stage || !sameRound) {
-      if (state.stage === "intermission" && liveAudio.current.suspense)
-        liveAudio.current.intermission(
-          Math.max(0, (state.deadline - state.serverTime) / 1000),
-        );
-    }
+    if (
+      state.stage === "choosing" &&
+      (before.stage !== "choosing" || !sameRound) &&
+      state.match!.phases.at(-1)!.active.includes(meId) &&
+      (!state.tie || state.tieIds.includes(meId)) &&
+      !state.seats.find((s) => s.id === meId)?.withdrawn
+    )
+      liveAudio.current.cue("input");
     if (!reduced)
       setEffects({ locks, scores, eliminated: out, reveal, champion });
     else setEffects(QUIET);
@@ -118,11 +121,13 @@ export function MatchRoom(props: Props) {
     connected,
     resyncing,
     pending,
+    submissionError,
+    onSync,
     pick,
     setPick,
     receipt,
     blocked,
-    help,
+    help: requestedHelp,
     onHelpClose,
     reduced,
     audio,
@@ -158,50 +163,64 @@ export function MatchRoom(props: Props) {
         behavior: "instant",
       });
   };
+  const [detailsKey, setDetailsKey] = useState("");
   const [dismissed, setDismissed] = useState(""),
     [receiptOpen, setReceiptOpen] = useState(false);
   useEffect(() => {
     if (eligible && locked) watch();
   }, [eligible, locked, state.roundId]);
   const privateEntry = eligible && !locked;
+  const finalAnnouncement =
+    state.stage === "finished" && dismissed !== stageKey;
+  const help = finalAnnouncement ? null : requestedHelp;
+  const details = detailsKey === stageKey && !finalAnnouncement;
   const autoOverlay =
     state.stage !== "intermission" &&
     (state.stage !== "choosing" || privateEntry || (state.tie && !eligible));
   const open =
+    details ||
     help !== null ||
-    (!blocked &&
+    ((!blocked || finalAnnouncement) &&
       ((receiptOpen && !!receipt && state.stage === "choosing") ||
         (autoOverlay && dismissed !== stageKey)));
   useEffect(() => setReceiptOpen(false), [state.roundId, state.stage]);
   // A lock acknowledgement closes only the private entry; no new choice can be made.
   const receiptDialog = receiptOpen && !!receipt && state.stage === "choosing";
-  const title = help
-    ? help === "circle"
-      ? "Final Circle tutorial"
-      : "How to play"
-    : receiptDialog
-      ? "Your locked-number receipt"
-      : state.stage === "briefing"
-        ? "Phase briefing"
-        : state.stage === "choosing"
-          ? state.tie
-            ? eligible
-              ? "Tiebreak · private entry"
-              : "Tiebreak · watch the table"
-            : "Your private figure"
-          : state.stage === "phaseEnd"
-            ? "One figure falls"
-            : state.stage === "finished"
-              ? "Final announcement"
-              : state.tie
-                ? "Tiebreak reveal"
-                : "Simultaneous reveal";
-  const dialogKey = help
-    ? `${match.id}:help:${help}`
-    : receiptDialog
-      ? `${stageKey}:receipt`
-      : stageKey;
+  const title = details
+    ? "Calculation & scoring details"
+    : help
+      ? help === "circle"
+        ? "Final Circle tutorial"
+        : "How to play"
+      : receiptDialog
+        ? "Your locked-number receipt"
+        : state.stage === "briefing"
+          ? "Phase briefing"
+          : state.stage === "choosing"
+            ? state.tie
+              ? eligible
+                ? "Tiebreak · private entry"
+                : "Tiebreak · watch the table"
+              : "Your private figure"
+            : state.stage === "phaseEnd"
+              ? "One figure falls"
+              : state.stage === "finished"
+                ? "Final announcement"
+                : state.tie
+                  ? "Tiebreak reveal"
+                  : "Simultaneous reveal";
+  const dialogKey = details
+    ? `${stageKey}:details`
+    : help
+      ? `${match.id}:help:${help}`
+      : receiptDialog
+        ? `${stageKey}:receipt`
+        : stageKey;
   const close = () => {
+    if (details) {
+      setDetailsKey("");
+      return;
+    }
     if (help) {
       onHelpClose();
       return;
@@ -253,7 +272,7 @@ export function MatchRoom(props: Props) {
             }
           />
         </div>
-        <Scoreboard state={state} meId={meId} shifts={effects.scores} />
+        <AudioControls audio={audio} />
       </div>
       <div className="room-content">
         <div className="room-stage-column">
@@ -273,7 +292,30 @@ export function MatchRoom(props: Props) {
                   title={title}
                   onClose={close}
                 >
-                  {help ? (
+                  {details ? (
+                    <>
+                      <Scoreboard
+                        state={state}
+                        meId={meId}
+                        shifts={effects.scores}
+                      />
+                      {latest && (
+                        <RoundDisplay round={latest.result} names={names} />
+                      )}
+                      <details className="room-commitment">
+                        <summary>Committed tie fallback</summary>
+                        <p className="hash">
+                          SHA-256
+                          <br />
+                          {phase.commitment}
+                        </p>
+                        <p className="fine">
+                          Fixed before phase inputs. The completed phase’s seed
+                          is revealed in replay.
+                        </p>
+                      </details>
+                    </>
+                  ) : help ? (
                     help === "circle" ? (
                       <CircleTutorial onClose={onHelpClose} />
                     ) : (
@@ -330,6 +372,24 @@ export function MatchRoom(props: Props) {
                           </div>
                         )}
                       </div>
+                      {submissionError && (
+                        <div className="room-submit-error" role="alert">
+                          {submissionError}
+                          <button
+                            className="secondary"
+                            onClick={onSync}
+                            disabled={pending || !connected}
+                          >
+                            Sync committed choice
+                          </button>
+                        </div>
+                      )}
+                      {!connected && (
+                        <p role="status">
+                          Reconnecting. Your choice is not confirmed. Sync will
+                          recover any committed lock.
+                        </p>
+                      )}
                       <form
                         className="room-number-form"
                         onSubmit={(e) => {
@@ -435,6 +495,25 @@ export function MatchRoom(props: Props) {
                         )}
                       </h2>
                       <p>{state.notice}</p>
+                      {phase.draw && (
+                        <p className="final-draw-note">
+                          The tiebreak stayed level. The committed draw
+                          eliminated {names[phase.eliminated!]}. Its proof is
+                          available in replay.
+                        </p>
+                      )}
+                      {latest && (
+                        <div className="final-reveal">
+                          <div className="eyebrow">
+                            PHASE {latest.phase} ·{" "}
+                            {latest.tiebreak
+                              ? "TIEBREAK"
+                              : `ROUND ${latest.round}`}{" "}
+                            · FINAL REVEAL
+                          </div>
+                          <RoundDisplay round={latest.result} names={names} />
+                        </div>
+                      )}
                       <div className="finale-summary">
                         {match.phases.reduce((v, p) => v + p.rounds.length, 0)}{" "}
                         rounds revealed ·{" "}
@@ -529,28 +608,18 @@ export function MatchRoom(props: Props) {
                         : "stage details"}
                   </button>
                 )}
+              <button
+                className="secondary"
+                onClick={() => setDetailsKey(stageKey)}
+              >
+                Calculation & scoring details
+              </button>
               <button className="text-button" onClick={onRules}>
                 Scoring explained ↗
               </button>
             </div>
           </div>
-          <AudioControls audio={audio} />
         </div>
-        <aside className="room-result-column">
-          <LatestResult latest={latest} names={names} />
-          <details className="room-commitment">
-            <summary>Committed tie fallback</summary>
-            <p className="hash">
-              SHA-256
-              <br />
-              {phase.commitment}
-            </p>
-            <p className="fine">
-              Fixed before phase inputs. Only the completed phase’s seed is
-              revealed in replay.
-            </p>
-          </details>
-        </aside>
       </div>
     </div>
   );

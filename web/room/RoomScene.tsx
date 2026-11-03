@@ -28,23 +28,23 @@ function Avatar() {
     <svg viewBox="0 0 80 84" aria-hidden="true">
       <defs>
         <linearGradient id={id} x2="0" y2="1">
-          <stop stopColor="#4a5147" />
-          <stop offset="1" stopColor="#171c17" />
+          <stop stopColor="#909e7f" />
+          <stop offset="1" stopColor="#344332" />
         </linearGradient>
       </defs>
       <path
         d="M8 81c0-18 8-29 21-32L19 26 27 7h26l8 19-10 23c13 3 21 14 21 32"
         fill={`url(#${id})`}
-        stroke="#69735e"
+        stroke="currentColor"
       />
       <path
         d="m27 25 13-8 13 8-4 22-9 9-9-9Z"
         fill="#101510"
         stroke="currentColor"
-        strokeOpacity=".6"
+        strokeOpacity=".9"
       />
       <path d="m30 33 7 2m6 0 7-2" stroke="currentColor" strokeWidth="2" />
-      <path d="m21 67 19-9 19 9M40 60v21" stroke="#74806a" fill="none" />
+      <path d="m21 67 19-9 19 9M40 60v21" stroke="currentColor" fill="none" />
     </svg>
   );
 }
@@ -74,6 +74,7 @@ export const RoomScene = memo(function RoomScene({
       className={`room-scene ${dimmed ? "is-dimmed" : ""}`}
       data-testid="room-scene"
       data-match={state.match!.id}
+      data-seat-count={players.length}
       aria-label="Oval table with fixed player seats"
     >
       <div className="room-architecture" aria-hidden="true">
@@ -86,19 +87,31 @@ export const RoomScene = memo(function RoomScene({
         <div className="table-inscription">
           <span>FATAL FIGURES</span>
           <b>
-            {showCards && latest?.result.target
+            {latest?.result.target
               ? decimal(latest.result.target)
               : p.rule === "circle"
                 ? "↻"
                 : "◈"}
           </b>
           <small>
-            {showCards
-              ? latest?.result.target
-                ? "REVEALED TARGET"
-                : "THE FIGURES ARE REVEALED"
+            {latest
+              ? `P${latest.phase} · ${latest.tiebreak ? "TIEBREAK" : `R${latest.round}`} · ${showCards ? "REVEALED" : "PREVIOUS RESULT"}`
               : "READ THE ROOM"}
           </small>
+          {latest && (
+            <small className="centre-outcome">
+              {latest.result.target
+                ? "TARGET"
+                : latest.result.rows.some((r) => r.winner)
+                  ? latest.result.rows
+                      .filter((r) => r.winner)
+                      .map(
+                        (r) => players.find((p) => p.id === r.seatId)?.nickname,
+                      )
+                      .join(" & ") + " WINS"
+                  : "NO WINNER"}
+            </small>
+          )}
         </div>
       </div>
       {players.map((player, index) => {
@@ -132,6 +145,13 @@ export const RoomScene = memo(function RoomScene({
             key={player.id}
             data-seat-id={player.id}
             data-seat-index={index}
+            data-seat-edge={
+              positions[index][0] < 20
+                ? "left"
+                : positions[index][0] > 80
+                  ? "right"
+                  : "none"
+            }
             data-seat-zone={positions[index][1] < 25 ? "north" : "side"}
             data-status={status.toLowerCase()}
             className={`fixed-seat ${out ? "is-eliminated" : ""} ${effects.eliminated.includes(player.id) ? "spotlight-fading" : ""} ${row?.winner ? "round-winner" : ""} ${state.match!.champion === player.id && state.stage === "finished" ? "is-champion" : ""}`}
@@ -153,31 +173,45 @@ export const RoomScene = memo(function RoomScene({
                 {player.id === meId
                   ? "YOU"
                   : player.bot
-                    ? "CPU"
+                    ? "BOT"
                     : `0${index + 1}`}
               </small>
             </div>
             <div
               className={`seat-score ${effects.scores.includes(player.id) ? "score-shift" : ""}`}
+              aria-label={`${player.nickname} phase total ${past.scores[player.id]}`}
             >
-              {past.scores[player.id]}
-              <small>{live ? "PHASE TOTAL" : `FINAL · P${past.index}`}</small>
+              <span>PHASE TOTAL</span>
+              <b>{past.scores[player.id]}</b>
+              <small>
+                {live ? `PHASE ${past.index}` : `FINAL · P${past.index}`}
+              </small>
             </div>
             <span className="seat-status">{status}</span>
-            {(locked || row) && (
+            {
               <div
-                className={`number-card ${row ? "is-open" : ""} ${effects.locks.includes(player.id) ? "card-arriving" : ""} ${row && effects.reveal ? "card-revealing" : ""}`}
+                className={`number-card ${!row && !locked ? "is-empty" : ""} ${row ? "is-open" : ""} ${effects.locks.includes(player.id) ? "card-arriving" : ""} ${row && effects.reveal ? "card-revealing" : ""}`}
                 aria-label={
                   row
                     ? `${player.nickname} revealed ${row.pick ?? "timeout"}`
-                    : `${player.nickname} sealed card`
+                    : `${player.nickname} ${locked ? "sealed card" : status.toLowerCase()}`
                 }
               >
+                <span className="figure-label">FIGURE</span>
                 <div className="card-inner">
-                  <div className="card-back">
-                    ◈<small>SEALED</small>
+                  <div className="card-back" aria-hidden={!!row}>
+                    {locked ? "◈" : "—"}
+                    <small>
+                      {locked
+                        ? "SEALED"
+                        : out
+                          ? "OUT"
+                          : state.stage === "choosing"
+                            ? "CHOOSING"
+                            : "WAITING"}
+                    </small>
                   </div>
-                  <div className="card-face">
+                  <div className="card-face" aria-hidden={!row}>
                     {row?.pick ?? "—"}
                     <small>
                       {row?.status === "timeout"
@@ -189,7 +223,7 @@ export const RoomScene = memo(function RoomScene({
                   </div>
                 </div>
               </div>
-            )}
+            }
           </div>
         );
       })}

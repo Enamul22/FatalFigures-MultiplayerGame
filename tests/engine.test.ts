@@ -49,7 +49,7 @@ describe("phase lifecycle and finite clocks", () => {
     it(`${n} seats: all timeouts, every tiebreak, exactly one elimination per phase within production budget`, () => {
       const { r, entropy } = game(n),
         end = finish(r, entropy);
-      expect(end).toBe((n - 1) * (3 * 120000 + 45000 + 25000));
+      expect(end).toBe((n - 1) * (3 * 120000 + 45000 + 25000) - 35000);
       expect(end).toBeLessThan(1740001);
       expect(r.match!.phases).toHaveLength(n - 1);
       expect(r.match!.status).toBe("champion");
@@ -71,6 +71,39 @@ describe("phase lifecycle and finite clocks", () => {
         }
       }
       expect(new Set(r.match!.phases.map((p) => p.seed)).size).toBe(n - 1);
+    });
+  for (const { tied, drawn } of [
+    { tied: false, drawn: false },
+    { tied: true, drawn: true },
+    { tied: true, drawn: false },
+  ])
+    it(`commits the ${tied ? (drawn ? "drawn tiebreak" : "unique tiebreak") : "ordinary"} final champion in the decisive reveal transition`, () => {
+      const { r, entropy } = game(2);
+      while (r.stage !== "finished") {
+        if (r.stage === "choosing") {
+          const at = r.deadline - 1;
+          lock(r, "seat-0", r.roundId, tied && (!r.tie || drawn) ? 0 : 68, at);
+          lock(r, "seat-1", r.roundId, 0, at);
+          const decisive = r.tie || (!tied && r.roundNumber === 3);
+          advance(r, at, entropy);
+          if (decisive) {
+            expect(r.stage).toBe("finished");
+            expect(r.match!.status).toBe("champion");
+            expect(r.match!.finishedAt).toBe(at);
+            expect(r.deadline).toBe(0);
+            expect(activePhase(r)!.rounds).toHaveLength(3);
+            expect(Boolean(activePhase(r)!.tiebreak)).toBe(tied);
+            expect(Boolean(activePhase(r)!.draw)).toBe(drawn);
+            const restored = structuredClone(r);
+            recover(restored, at + 60000);
+            expect(snapshot(restored, at + 60000).match).toEqual(
+              snapshot(r, at).match,
+            );
+            break;
+          }
+          expect(r.match!.champion).toBeUndefined();
+        } else advance(r, r.deadline, entropy);
+      }
     });
   it("uses actual start count, all-zero initial scores, and exactly three main rounds", () => {
     for (const n of [2, 3, 4, 5]) {
@@ -215,7 +248,7 @@ describe("phase lifecycle and finite clocks", () => {
   it("never allows a readiness gate after start", () => {
     const { r, entropy } = game(2);
     r.seats.forEach((s) => (s.ready = false));
-    expect(finish(r, entropy)).toBe(430000);
+    expect(finish(r, entropy)).toBe(395000);
   });
 });
 import { verifyReplay } from "../shared/replay.js";

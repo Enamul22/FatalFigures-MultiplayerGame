@@ -268,6 +268,11 @@ function finishPhase(
     "One elimination. Survivor handicaps follow main-phase performance; tiebreaks do not add points.";
   if (p.active.length === 2) {
     r.match!.champion = p.active.find((id) => id !== eliminated)!;
+    r.match!.status = "champion";
+    r.match!.finishedAt = at;
+    r.stage = "finished";
+    r.deadline = 0;
+    r.notice = "The final figure stands.";
   }
 }
 function afterMain(r: Room, at: number, entropy: () => string) {
@@ -279,7 +284,24 @@ function afterMain(r: Room, at: number, entropy: () => string) {
     openRound(r, at, true);
   }
 }
-function resolve(r: Room, at: number) {
+function finishTiebreak(r: Room, at: number, entropy: () => string) {
+  const t = activePhase(r)!.tiebreak!,
+    rank = t.rows
+      .map((row) => ({
+        id: row.seatId,
+        score: row.delta,
+        accuracy: row.accuracy,
+        wins: Number(row.winner),
+      }))
+      .sort((a, b) => comparePerformance(a, b, t.rule));
+  const ids = bottom(rank, t.rule);
+  const p = activePhase(r)!;
+  if (ids.length > 1) {
+    p.draw = draw(p.seed, ids);
+    finishPhase(r, p.draw.eliminated, at, entropy);
+  } else finishPhase(r, ids[0], at, entropy);
+}
+function resolve(r: Room, at: number, entropy: () => string) {
   const p = activePhase(r)!,
     result = resolveRound(
       r.roundId,
@@ -306,6 +328,15 @@ function resolve(r: Room, at: number) {
   r.stage = "reveal";
   r.deadline = at + (r.tie ? r.timing.tieReveal : r.timing.reveal);
   r.notice = "Numbers revealed together. Results are committed.";
+  // The final result and champion share one persisted transition. Earlier pacing
+  // is untouched; a tied main final still reveals before its required tiebreak.
+  if (p.active.length === 2) {
+    if (r.tie) finishTiebreak(r, at, entropy);
+    else if (r.roundNumber === 3) {
+      const ids = bottom(performance(p), p.rule);
+      if (ids.length === 1) finishPhase(r, ids[0], at, entropy);
+    }
+  }
 }
 export function terminate(
   r: Room,
@@ -351,29 +382,16 @@ export function advance(r: Room, now: number, entropy: () => string): boolean {
       !participants(r).every((id) => r.picks[id] !== undefined)
     )
       return false;
-    resolve(r, now >= r.deadline ? r.deadline : now);
+    resolve(r, now >= r.deadline ? r.deadline : now, entropy);
     return true;
   }
   if (now < r.deadline) return false;
   const at = r.deadline;
   if (r.stage === "briefing") openRound(r, at);
   else if (r.stage === "reveal") {
-    if (r.tie) {
-      const t = activePhase(r)!.tiebreak!,
-        rank = t.rows
-          .map((row) => ({
-            id: row.seatId,
-            score: row.delta,
-            accuracy: row.accuracy,
-            wins: Number(row.winner),
-          }))
-          .sort((a, b) => comparePerformance(a, b, t.rule));
-      const ids = bottom(rank, t.rule);
-      const p = activePhase(r)!;
-      if (ids.length > 1) {
-        p.draw = draw(p.seed, ids);
-        finishPhase(r, p.draw.eliminated, at, entropy);
-      } else finishPhase(r, ids[0], at, entropy);
+    if (r.tie) finishTiebreak(r, at, entropy);
+    else if (activePhase(r)!.active.length === 2 && r.roundNumber === 3) {
+      afterMain(r, at, entropy);
     } else {
       r.stage = "intermission";
       r.deadline = at + r.timing.intermission;

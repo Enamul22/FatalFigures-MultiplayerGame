@@ -69,3 +69,19 @@ or unavailable audio. A scene DOM observer remained at zero mutations across
 countdown ticks. Fixed top-seat card clipping found during visual review.
 See ROOM_PRESENTATION.md for component details, screenshot index and honest device
 verification limits. No deployment, new repository, database or version bump.
+
+## November 3, 2026 — table-first refinement
+
+Removed permanent duplicate panels; enlarged the room and avatars with paired
+FIGURE / PHASE TOTAL cards. Kept previous targets explicitly labelled, hidden
+choices sealed, optional scoring details and history accessible, and added a
+clear confirmed Leave room action. Added local CC0 continuous suspense music
+with recorded provenance/legal code and original input/lock/reveal/elimination
+cues. Final main/tiebreak result and champion now commit atomically without
+redundant end waits. Failed/uncertain submissions show actionable in-dialog sync
+states; successful locks return to the table automatically.
+
+Verification: build, 50 backend tests, 14 browser scenarios, 4,000 seeded/replay
+simulations, formatter and visual desktop/phone review; current evidence and
+limits are in ROOM_PRESENTATION.md and VERIFICATION.md. Version remains 1.0.0;
+existing repository, landing and other portfolio projects preserved; no deploy.

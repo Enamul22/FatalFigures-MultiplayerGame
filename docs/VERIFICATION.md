@@ -1,6 +1,6 @@
 # Verification record
 
-Review date: **1 November 2026**. Node **24.22.1**, TypeScript, real local
+Review date: **3 November 2026**. Node **24.22.1**, TypeScript, real local
 PostgreSQL **18**, Chromium **156** and Firefox **157**. No cloud deployment.
 
 ## Automated checks
@@ -25,14 +25,15 @@ substitute a mocked store for durable verification.
 | Replay                 | Independent recalculation of exact effects, phase totals, handicaps, bounded elimination and committed draw; altered scores/candidates fail verification                                          |
 
 - `npm run build`: typecheck, Vite frontend build and compiled Node server.
-- `npm test`: **47 tests**, including PostgreSQL, real clients and process restart.
+- `npm test`: **50 tests**, including PostgreSQL, real clients and process restart.
 - `npm run simulate`: **4,000 matches**, 1,000 per starting count; every resolved
   simulation replay independently recomputed.
-- `npm run test:browser`: **10 end-to-end scenarios**; game flows cover the cases
+- `npm run test:browser`: **14 end-to-end scenarios**; game flows cover the cases
   above. Browser-only test clocks are 12s choosing, 2s reveal, .7s intermission,
   1.2s briefing, 1.5s phase result, and 9+1.5s tie. Those are deliberately shortened
-  fixture settings; the production clock proof uses 90/20/10s, 15+10s phase
-  screens and 30+15s ties.
+  fixture settings; the production clock proof uses 90/20/10s, 15+10s earlier-phase
+  screens and 30+15s earlier ties. The decisive final resolution commits the
+  champion immediately; see the current room notes for final transition details.
 - `npm run format:check`: repository code and documentation formatting.
 
 The production-timed Chrome review also played a five-seat practice table with
@@ -53,10 +54,10 @@ choosing windows model ceilings, not normal human match lengths.
 
 | Starters | Maximum    | Mixed-phase tiebreak rate | Mixed collision rate | Mixed circle draw rate |
 | -------- | ---------- | ------------------------- | -------------------- | ---------------------- |
-| 2        | 7m10s      | 7.25%                     | n/a                  | 8.75%                  |
-| 3        | 14m20s     | 1.75%                     | 6.09%                | 12.04%                 |
-| 4        | 21m30s     | 1.75%                     | 11.96%               | 16.75%                 |
-| 5        | **28m40s** | 1.50%                     | 14.79%               | 18.13%                 |
+| 2        | 6m35s      | 7.25%                     | n/a                  | 8.75%                  |
+| 3        | 13m45s     | 1.75%                     | 6.09%                | 12.04%                 |
+| 4        | 20m55s     | 1.75%                     | 11.96%               | 16.75%                 |
+| 5        | **28m05s** | 1.50%                     | 14.79%               | 18.13%                 |
 
 The overall tiebreak rate is higher (21.2–25.8%) because deliberate timeout/equal
 stress cases force ties. Those cases must not be interpreted as ordinary human
@@ -119,11 +120,30 @@ additional smoke-test server was stopped; the main local review server remains
 available on port 3000. Local Docker execution remains untested; the actual
 remote Docker build above is the recorded container verification.
 
-## Playing-room presentation follow-up
+## November 1 presentation follow-up (historical)
 
 See [ROOM_PRESENTATION.md](ROOM_PRESENTATION.md) for the oval table, stable seats,
 local dialogs, retained result, isolated countdown, optional audio, reduced motion
-and expanded browser checks. Backend/scoring/timing/persistence source and version
-remain unchanged. Earlier CI evidence above describes the initial delivery; the
-[current workflow](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml)
-verifies the updated room, with 47 backend tests and 10 browser scenarios.
+and expanded browser checks. That update left backend/scoring/timing/persistence
+source and version unchanged and passed 47 backend tests and 10 browser scenarios.
+[Its successful CI run](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/runs/41326029404)
+verifies commit `489b325`. The following section records the current refinements.
+
+## November 3 room refinements
+
+Current local evidence: build, format check, **50 backend tests**, **14 browser
+scenarios**, and all **4,000 seeded matches** passed. The three added engine tests
+assert atomic ordinary/tied final completion with production clocks. Four added
+browser cases exercise both immediate finals (including final choices,
+refresh/replay/rematch), actual server rejection and retry, active-leave
+confirmation, and lost acknowledgement/snapshot fault injection followed by sync.
+The original ten browser flows cover 2–5-seat friend rooms, full ladder,
+computer play, private choices, stable seats, spectator/elimination states,
+reconnects, reduced motion and audio failure paths. Music is a real local CC0
+media file; the browser checks playback time advancing across stages alongside
+real oscillator cues, volume and mute. Chrome and phone screenshots were
+visually inspected. [Full current design, licensing and limits](ROOM_PRESENTATION.md).
+
+The initial delivery CI links above are historical evidence for those commits,
+not a claim that they ran the current refinements. The existing workflow runs
+the current checks on this push. No deployment or portfolio/cloud DB change.
