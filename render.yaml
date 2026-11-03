@@ -1,0 +1,27 @@
+# One server only. Follow docs/HOSTING.md for controlled releases; never use a rolling deploy.
+services:
+  - type: web
+    name: fatalfigures-enamul22
+    runtime: docker
+    plan: free
+    region: frankfurt
+    repo: https://github.com/Enamul22/FatalFigures-MultiplayerGame
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    numInstances: 1
+    autoDeployTrigger: "off"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: "10000"
+      - key: ORIGIN
+        value: https://fatalfigures-enamul22.onrender.com
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_UNPOOLED
+        sync: false
