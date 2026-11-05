@@ -26,7 +26,7 @@ Health/readiness path: **`/api/health`**. It returns 200 only while this process
 ## Migrations
 
 1. Verify the selected Neon project is **FatalFigures** (`withered-river-63517116`) and the database is `fatalfigures`.
-2. Branch from the game production branch into an isolated validation branch. Reuse the existing `deployment-validation` branch appropriately; never branch another portfolio project for this game.
+2. Branch from the game production branch into an isolated validation branch. Reuse the existing `deployment-validation` branch appropriately.
 3. Supply its **direct** URL privately and run `npm run migrate`. Repeat to verify idempotence; test the application against the branch and review the schema changes.
 4. Only after validation, apply the same numbered migrations to the game production database using its private direct URL.
 

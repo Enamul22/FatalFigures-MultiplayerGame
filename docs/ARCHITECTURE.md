@@ -3,8 +3,7 @@
 ## Supported topology
 
 One long-running Node.js 24 process serves the Vite build and Socket.IO. A separate
-PostgreSQL database stores a dedicated `fatalfigures` schema. No other portfolio
-repository or database is imported. Public configuration without database URLs or
+PostgreSQL database stores a dedicated `fatalfigures` schema. Public configuration without database URLs or
 without migrations fails; there is no in-memory persistence fallback.
 
 This is a modest single-authority design, not a horizontally coordinated service.

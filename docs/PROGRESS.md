@@ -1,106 +1,25 @@
-# Implementation record
+# Engineering decisions and development history
 
-2026-11-01: Read the complete approved master prompt. Verified GitHub connector ID
-135505234 / Enamul22 and matching SSH identity. All three existing repositories
-were clean at baseline. No existing application/database is an implementation target.
+## Multiplayer engine
 
-Decisions: React/Vite + Express/Socket.IO, exact bounded rational rule engine,
-PostgreSQL checkpoint + public event ledger + unique choice receipts in one
-transaction. A direct-connection advisory lease enforces one authoritative server;
-no cross-instance routing claim. Separate `fatalfigures` schema. Real local
-PostgreSQL verification avoids touching existing Neon records. Production timers
-are 90/20/10 seconds; phase briefing 15 and phase end 10, one 30+15 second tie.
-Maximum five-seat schedule: 28m40s (under the approved 29-minute budget).
+React/Vite and Express/Socket.IO share a TypeScript rule engine with exact rational scoring. PostgreSQL transactions combine versioned checkpoints, public event records and unique choice receipts. An advisory lease and fenced authority row enforce one active game server per database.
 
-Recovery policy: retain the original clock if restart is within 10 seconds AND
-before the current deadline. Otherwise record Interrupted; never synthesize a
-backlog of timeout rounds. Committed choice receipts remain durable even when
-an interrupted round does not enter public replay.
+Three-round elimination phases use changing statistical rules and a cyclic two-player final. Bounded tiebreaks and committed random draws support a finite match duration. Replay tools independently recompute the recorded effects.
 
-Implementation and verification ongoing; results will be recorded after checks.
+## Recovery and verification
 
-Implemented vertical slice through complete rule engine, real Socket.IO rooms,
-private durable locks, server-owned clock, committed bounded ties, bot practice,
-replay verification, rematch, mobile UI and original SVG/synth cues. Real local
-PostgreSQL 18 and isolated test databases were created; no cloud database or
-existing repository was used for writes.
+Acknowledged choices survive reconnects and server restarts. Short restarts preserve the original deadline; longer interruptions record an Interrupted match instead of inventing catch-up penalties. Bot decisions consume public history and independent randomness.
 
-Browser review found and fixed a production SVG path issue and host identity
-changing on in-match refresh. The five-session Chromium/Firefox elimination
-ladder and rematch passed. Added a live authority-stall guard, real OS-process
-SIGKILL/restart test, full replay recomputation and seat-order permutation tests.
-Latest simulations use four strategy families and independent choice seeds;
-ordinary mixed play is reported separately from deliberate timeout/tie stress.
-See VERIFICATION.md for quantitative findings; approved rules remain unchanged.
+The initial remote verification included 47 tests, Chromium/Firefox multiplayer scenarios, 4,000 seeded matches and a Docker build. Later refinements expanded backend and browser coverage. See [VERIFICATION.md](VERIFICATION.md) for current recorded evidence and simulation limitations.
 
-Delivery: application commit `4cda8c307c4a2fbb72921f1668e0858f1d7b660a` pushed to
-Enamul22/FatalFigures-MultiplayerGame main. GitHub attributed the commit to
-Enamul22. Actual remote run 41254110331 completed successfully: 47 tests,
-3 Chromium/Firefox browser scenarios, 4,000 seeded matches and Docker build.
-A separate clean clone built and started after pruning dev dependencies; its
-health check passed and that temporary server was stopped. Main review server
-and persistent local PostgreSQL remain on ports 3000 / 5544.
+## Playing room
 
-Final checks found the three original repositories clean and at the exact
-baseline commits (FleetCare 2fede6a, ServicePlan 5824d47, FleetPulse 17d4c84).
-No existing database or hosting settings were touched. No deployment performed.
-The final documentation commit records this evidence; runtime code is unchanged.
+The room evolved into an oval CSS/SVG table with stable seats, avatars, private entry dialogs, visible figure/phase-total cards, an accessible timer and on-demand scoring details. Successful locks return immediately to the table. The decisive final result commits the champion without a redundant end-screen wait.
 
-Landing-page refinement requested by Enamul: renamed the computer-play button to
-"Play with computer", removed the maximum-duration marketing block, and removed
-"MEAN × 0.8" from the yellow illustration. Actual phase rules and production
-timing remain unchanged. Build and the desktop/phone browser scenario passed;
-updated both landing screenshots and the existing button selectors.
+Continuous CC0 background music and original event cues support mute and volume controls. Reduced motion, mobile layouts and reconnect-safe presentation are covered by the room verification record. See [ROOM_PRESENTATION.md](ROOM_PRESENTATION.md) and [audio credits](../web/public/audio/README.md).
 
-Playing-room presentation upgrade (1 November 2026): retained Fatal Figures 1.0.0,
-the existing repository, identical landing JSX/screenshots, and unchanged backend,
-engine, production timing, schema and protocol. Extracted reusable presentation
-components and added the oval CSS/SVG room, stable roster-based seats, local stage
-and tutorial dialogs, private receipt reopening, sticky timer/score ledger,
-retained phase/round reveal, live-only short effects and optional original synth
-audio with mute/volume/intermission controls. Reconnect/resync establishes a quiet
-current-state baseline rather than replaying missed effects.
+## Public deployment — 3 November 2026
 
-Local verification: build and 47 existing backend/PostgreSQL/process tests passed;
-all 10 expanded browser scenarios passed, including Chromium/Firefox full match,
-2/3/4/5-seat starts, privacy, receipts, stable eliminated seats, retained results,
-reconnects, rematch, phone/touch, reduced motion, real audio scheduling and rejected
-or unavailable audio. A scene DOM observer remained at zero mutations across
-countdown ticks. Fixed top-seat card clipping found during visual review.
-See ROOM_PRESENTATION.md for component details, screenshot index and honest device
-verification limits. No deployment, new repository, database or version bump.
+The game runs on Render with Neon PostgreSQL in Frankfurt. Migrations were validated on an isolated database branch before application. Bounded authority handover handles overlapping server replacement while preserving the exclusive lease.
 
-## November 3, 2026 — table-first refinement
-
-Removed permanent duplicate panels; enlarged the room and avatars with paired
-FIGURE / PHASE TOTAL cards. Kept previous targets explicitly labelled, hidden
-choices sealed, optional scoring details and history accessible, and added a
-clear confirmed Leave room action. Added local CC0 continuous suspense music
-with recorded provenance/legal code and original input/lock/reveal/elimination
-cues. Final main/tiebreak result and champion now commit atomically without
-redundant end waits. Failed/uncertain submissions show actionable in-dialog sync
-states; successful locks return to the table automatically.
-
-Verification: build, 50 backend tests, 14 browser scenarios, 4,000 seeded/replay
-simulations, formatter and visual desktop/phone review; current evidence and
-limits are in ROOM_PRESENTATION.md and VERIFICATION.md. Version remains 1.0.0;
-existing repository, landing and other portfolio projects preserved; no deploy.
-
-## Authorized public deployment — 3 November 2026
-
-Enamul authorized Render + dedicated Neon hosting without a design/version change.
-Verified Enamul22 GitHub/SSH, Enamul's Render account and Enamul FDE Neon ownership.
-Created only game resources in Frankfurt, selected Free compute, left automatic
-deployments Off and kept exact origin/connection variables private. Migration 001
-was tested twice on an isolated game Neon branch before production application.
-
-Render's rolling lifecycle was explicitly tested. A bounded unready replacement,
-full-SHA approval entrypoint and exact-old-PID helper permit a fenced handover
-without removing the original exclusive lease. Same-commit Suspend/Resume was
-verified separately; Resume uses its previous successful build/configuration.
-Actual HTTPS gameplay, independent sessions, privacy, phone, audio, ordinary/tied
-finals, elimination, replay/rematch and durable restart were exercised. A JSONB
-key-order sensitivity in the offline draw verifier was fixed with actual database
-regression coverage. See DEPLOYMENT_RECORD.md and HOSTING.md for resources,
-precise evidence, limits and the future maintenance procedure. No other portfolio
-application/database was changed; no paid resource or custom domain was added.
+Hosted verification exercised independent sessions, privacy, phone/audio controls, ordinary and tied finals, replay, rematch and durable restart. A PostgreSQL JSONB key-order issue in the draw verifier was fixed with regression coverage. Deployment evidence, resource limits and maintenance procedures are documented in [DEPLOYMENT_RECORD.md](DEPLOYMENT_RECORD.md) and [HOSTING.md](HOSTING.md).

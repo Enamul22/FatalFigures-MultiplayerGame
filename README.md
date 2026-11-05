@@ -2,11 +2,18 @@
 
 [![Verify Fatal Figures](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml/badge.svg)](https://github.com/Enamul22/FatalFigures-MultiplayerGame/actions/workflows/ci.yml)
 
-**Read the room. Choose your fatal figure.** A private-room multiplayer browser
-game by **Enamul Haque**: prediction, bluffing, changing statistical targets and
-exactly one elimination per phase. Built as the fourth independent portfolio
-project. Version **1.0.0**. [Play the public game](https://fatalfigures-enamul22.onrender.com).
-Render Free may need about a minute to wake after inactivity.
+**Read the room. Choose your fatal figure.** A real-time strategy game by **Enamul Haque** for **2–5 players**. Secret number choices, changing statistical targets and elimination rounds turn prediction into a contest of nerve.
+
+[**Play Fatal Figures**](https://fatalfigures-enamul22.onrender.com) · [Game rules](docs/PLAYER_RULES.md)
+
+**TypeScript · React · Vite · Express · Socket.IO · Neon PostgreSQL · Render**
+
+- Private friend rooms and practice opponents share the same server-authoritative game rules.
+- Durable choice receipts, reconnect recovery and transactional scoring protect match consistency.
+- Exact arithmetic, committed tie draws and independently verifiable replays make outcomes inspectable.
+- An animated table, phase music and responsive controls support desktop and mobile play.
+
+The free hosting instance may take about a minute to wake after inactivity.
 
 ![Fatal Figures game table](docs/screenshots/14-oval-table-revealed.png)
 
@@ -14,7 +21,7 @@ Render Free may need about a minute to wake after inactivity.
 
 Create a room, share its code/link, and invite **2–5 people**. Each player picks a
 guest nickname, marks ready and the host starts. Practice puts one human against
-1–4 clearly labelled strategy bots. No account, money stakes, chat or paid AI API.
+1–4 clearly labelled strategy bots. Join with a nickname; no account registration is required.
 
 - Choose a whole number from **0–100**, then **Lock figure**. The server commits it
   before confirming; it cannot be changed. Others see only the lock status.
@@ -48,7 +55,7 @@ npm run db:local
 
 Keep that terminal running. This starts **real PostgreSQL 18** on loopback port
 5544 with persistent files in ignored `.pgdata/`, and creates `.env` only if absent.
-It never reads another portfolio project’s configuration. In another terminal:
+In another terminal:
 
 ```sh
 npm run migrate
@@ -91,8 +98,7 @@ npm run format:check
 ```
 
 `npm run db:fixtures` creates those two local test databases automatically. This
-helper refuses remote hosts and non-local database configurations. CI uses a fresh
-PostgreSQL service and never connects to a portfolio database.
+helper refuses remote hosts and non-local database configurations. CI uses a fresh PostgreSQL service with isolated fixtures.
 
 The suite covers exact rational scoring, the entire circle matrix, phase/rank
 handicaps, bounded ties, deterministic committed draws, production duration,
@@ -135,7 +141,7 @@ React + Vite, Express + Socket.IO, TypeScript, and PostgreSQL. One Node process
 serves both the frontend and real-time endpoint. A direct database advisory lease,
 fenced authority row, row locks, versioned checkpoints, append-only public event
 records and unique choice receipts provide application-level concurrency and
-recovery guarantees. The built frontend alone is **not** a playable hosted game.
+recovery guarantees.
 
 Production timers cap a five-seat schedule at **28m05s**; a 30-minute watchdog
 records Interrupted if the state machine cannot finish. A restart within 10 seconds
@@ -144,21 +150,12 @@ preserves committed history without inventing catch-up rounds. Whole-room human
 abandonment terminates early. See [architecture and privacy](docs/ARCHITECTURE.md).
 
 Supported topology: **one authoritative Node process per game database**, with
-ordinary PostgreSQL clients. A second writer refuses to start. No multi-instance
-Socket.IO coordination, horizontal-scale claim or public ranked matchmaking.
-Deploying multiple instances behind sticky sessions is not sufficient here.
+ordinary PostgreSQL clients. A database lease enforces exclusive authority. See [hosting and maintenance](docs/HOSTING.md) for the supported deployment and handover procedure.
 
 ![Mobile Final Circle](docs/screenshots/05-circle-phone.png)
 
-## Credits and boundaries
+## Credits and licence
 
-An original hobby adaptation inspired by _Alice in Borderland_ and Enamul’s
-earlier Python console experiment. Original geometric branding, interface and
-synthesized sound cues; no show footage/music, copied rulebook or affiliation.
-External background music is CC0 and credited in the audio licensing document.
-The working name does not assert trademark clearance. Application code is MIT licensed.
+Inspired by _Alice in Borderland_ and Enamul’s earlier Python number-game experiment. Application code is [MIT licensed](LICENSE). Background music sources and licences are listed in [audio credits](web/public/audio/README.md).
 
-FleetCare, ServicePlan and FleetPulse remain separate, unchanged projects. No
-existing users, sessions, private files or database records were imported. The public game uses its own Neon project and a single Render Free server.
-See [deployment evidence and free-tier limits](docs/DEPLOYMENT_RECORD.md) and
-[safe maintenance instructions](docs/HOSTING.md).
+[Architecture](docs/ARCHITECTURE.md) · [Verification](docs/VERIFICATION.md) · [Deployment](docs/DEPLOYMENT_RECORD.md) · [Hosting and maintenance](docs/HOSTING.md)
